@@ -101,7 +101,7 @@ export default function App() {
 
       {/* Main Content Container */}
       <main className="md:pl-20 w-full overflow-hidden">
-        <HomeSection onOpenGallery={() => setIsGalleryOpen(true)} />
+        <HomeSection />
         <SpecsSection />
         <BenefitsSection />
         <UseCasesSection />

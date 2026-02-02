@@ -2,10 +2,10 @@ import { Reveal } from '../components/ui/Reveal';
 import { motion } from 'framer-motion';
 
 interface HomeSectionProps {
-  onOpenGallery?: () => void;
+  // onOpenGallery?: () => void; // Removed because the button now links to #benefits
 }
 
-export function HomeSection({ onOpenGallery }: HomeSectionProps) {
+export function HomeSection({ }: HomeSectionProps) {
   return (
     <section
       id="home"
@@ -72,18 +72,18 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
             >
               Przykłady zastosowań
             </a>
-            <button
-              onClick={onOpenGallery}
-              className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors group"
+            <a
+              href="#benefits"
+              className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors"
             >
-              <span>Dlaczego my?</span>
-            </button>
+              Dlaczego my?
+            </a>
           </div>
         </Reveal>
 
         {/* Stats Row */}
         <Reveal delay={0.7} width="100%">
-          <div className="mt-20 grid grid-cols-3 gap-8 max-w-2xl">
+          <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-y-10 sm:gap-x-12 lg:gap-x-20 max-w-3xl">
             <div>
               <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
                 3-5 dni
@@ -92,7 +92,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
             </div>
             <div>
               <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
-                &gt;100 marek
+                &gt;100 firm
               </span>
               <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Drukowaliśmy dla</span>
             </div>

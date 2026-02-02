@@ -45,13 +45,13 @@ export function BenefitsSection() {
         <div className="mb-24">
           <Reveal>
             <span className="font-mono text-gray-text text-xs uppercase tracking-widest block mb-4">
-              03 — Korzyści
+              03 — Dlaczego my?
             </span>
           </Reveal>
 
           <Reveal delay={0.1}>
             <h2 className="font-sans font-bold text-black text-3xl md:text-5xl mb-8">
-              Co zyskasz
+              Nasze atuty
             </h2>
           </Reveal>
 
