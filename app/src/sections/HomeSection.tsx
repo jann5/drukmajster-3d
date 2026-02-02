@@ -15,7 +15,6 @@ export function HomeSection({ }: HomeSectionProps) {
   });
 
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const scale = useTransform(scrollYProgress, [0, 0.8], [1, 0.9]);
   const y = useTransform(scrollYProgress, [0, 0.8], [0, -100]);
 
   return (
@@ -94,45 +93,45 @@ export function HomeSection({ }: HomeSectionProps) {
 
           {/* Stats Row */}
           <Reveal delay={0.7} width="100%">
-            <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-y-10 sm:gap-x-12 lg:gap-x-16 max-w-3xl">
+            <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-10 max-w-2xl">
               <div>
-                <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
+                <span className="font-mono text-black text-4xl md:text-5xl block tracking-tighter">
                   3-5 dni
                 </span>
-                <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Czas realizacji</span>
+                <span className="font-sans text-gray-text text-[10px] uppercase tracking-[0.2em] mt-3 block">Czas realizacji</span>
               </div>
               <div>
-                <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
+                <span className="font-mono text-black text-4xl md:text-5xl block tracking-tighter">
                   &gt;100 firm
                 </span>
-                <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Drukowaliśmy dla</span>
+                <span className="font-sans text-gray-text text-[10px] uppercase tracking-[0.2em] mt-3 block">Zadowolonych klientów</span>
               </div>
               <div>
-                <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
-                  całą Europę
+                <span className="font-mono text-black text-4xl md:text-5xl block tracking-tighter">
+                  cała Europa
                 </span>
-                <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Obsługujemy</span>
+                <span className="font-sans text-gray-text text-[10px] uppercase tracking-[0.2em] mt-3 block">Zasięg obsługi</span>
               </div>
             </div>
           </Reveal>
         </motion.div>
 
-        {/* Printer Image - Enlarged */}
-        <div className="relative flex justify-center lg:justify-end">
+        {/* Printer Image - Massive & Cropped */}
+        <div className="relative flex justify-center lg:justify-end h-full">
           <motion.div
-            style={{ opacity, scale, y }}
-            initial={{ opacity: 0, x: 50 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[500px] lg:max-w-[850px] lg:translate-x-16"
+            style={{ opacity, scale: useTransform(scrollYProgress, [0, 0.8], [1.1, 1]), y }}
+            initial={{ opacity: 0, scale: 1, x: 150 }}
+            animate={{ opacity: 1, scale: 1.1, x: 0 }}
+            transition={{ delay: 0.4, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+            className="w-full max-w-[700px] lg:max-w-[1200px] lg:translate-x-48 lg:-mb-56"
           >
             <img
               src={printerImage}
               alt="Stratasys F170 Printer"
-              className="w-full h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.18)]"
+              className="w-full h-auto drop-shadow-[0_40px_100px_rgba(0,0,0,0.25)]"
             />
-            {/* Subtle glow background */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-transparent via-gray-100 to-transparent rounded-full -z-10 blur-[100px] opacity-40" />
+            {/* Massive glow background */}
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-to-tr from-transparent via-gray-100 to-transparent rounded-full -z-10 blur-[150px] opacity-60" />
           </motion.div>
         </div>
       </div>
