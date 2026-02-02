@@ -36,20 +36,17 @@ export function HomeSection({ }: HomeSectionProps) {
 
           {/* Name */}
           <Reveal delay={0.2} y={40}>
-            <div className="mb-4">
+            <div className="mb-2">
               <h1 className="font-sans font-bold text-black text-5xl md:text-7xl lg:text-8xl tracking-tight">
                 DrukMajster3D
               </h1>
-              <span className="font-sans text-gray-text text-lg md:text-xl tracking-tight">
-                Wielkopolska rzetelność
-              </span>
             </div>
           </Reveal>
 
           {/* Printer Model */}
           <Reveal delay={0.3}>
-            <div className="flex items-center gap-4 mb-10">
-              <span className="font-mono text-gray-text text-xl md:text-2xl">
+            <div className="mb-10">
+              <span className="font-mono text-gray-text text-lg md:text-xl uppercase tracking-tight">
                 amerykańska technologia STRATASYS
               </span>
             </div>
@@ -67,8 +64,7 @@ export function HomeSection({ }: HomeSectionProps) {
           {/* Subtitle */}
           <Reveal delay={0.5}>
             <p className="font-sans text-black text-lg md:text-xl max-w-xl leading-relaxed mb-8">
-              Twój partner w przemysłowym druku 3D.
-              Precyzyjna produkcja z materiałów: PLA, ABS, ASA, TPU.
+              Twój partner w przemysłowym druku 3D. Precyzyjna produkcja z materiałów: PLA, ABS, ASA, TPU.
             </p>
           </Reveal>
 
@@ -98,7 +94,7 @@ export function HomeSection({ }: HomeSectionProps) {
 
           {/* Stats Row */}
           <Reveal delay={0.7} width="100%">
-            <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-y-10 sm:gap-x-12 lg:gap-x-20 max-w-3xl">
+            <div className="mt-20 grid grid-cols-1 sm:grid-cols-3 gap-y-10 sm:gap-x-12 lg:gap-x-16 max-w-3xl">
               <div>
                 <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
                   3-5 dni
@@ -128,15 +124,15 @@ export function HomeSection({ }: HomeSectionProps) {
             initial={{ opacity: 0, x: 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[500px] lg:max-w-[750px] lg:translate-x-12"
+            className="w-full max-w-[500px] lg:max-w-[850px] lg:translate-x-16"
           >
             <img
               src={printerImage}
               alt="Stratasys F170 Printer"
-              className="w-full h-auto drop-shadow-[0_20px_50px_rgba(0,0,0,0.15)]"
+              className="w-full h-auto drop-shadow-[0_20px_60px_rgba(0,0,0,0.18)]"
             />
             {/* Subtle glow background */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-transparent via-gray-100 to-transparent rounded-full -z-10 blur-3xl opacity-50" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-transparent via-gray-100 to-transparent rounded-full -z-10 blur-[100px] opacity-40" />
           </motion.div>
         </div>
       </div>
