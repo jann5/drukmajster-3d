@@ -4,10 +4,10 @@ import { useRef } from 'react';
 import printerImage from '../assets/printer-f170.png';
 
 interface HomeSectionProps {
-  // onOpenGallery?: () => void; // Removed because the button now links to #benefits
+  onOpenGallery?: () => void;
 }
 
-export function HomeSection({ }: HomeSectionProps) {
+export function HomeSection({ onOpenGallery }: HomeSectionProps) {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -82,12 +82,12 @@ export function HomeSection({ }: HomeSectionProps) {
               >
                 Parametry
               </a>
-              <a
-                href="#usecases"
+              <button
+                onClick={onOpenGallery}
                 className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors"
               >
                 Zobacz realizacje
-              </a>
+              </button>
             </div>
           </Reveal>
 
