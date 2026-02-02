@@ -1,5 +1,4 @@
 import { Reveal } from '../components/ui/Reveal';
-import { Counter } from '../components/ui/Counter';
 import { motion } from 'framer-motion';
 
 interface HomeSectionProps {
@@ -16,22 +15,27 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
         {/* Label */}
         <Reveal delay={0.1}>
           <span className="font-mono text-gray-text text-xs uppercase tracking-widest">
-            Przemysłowy druk 3D
+            WYDRUKI 3D NA DRUKARKACH PRZEMYSŁOWYCH
           </span>
         </Reveal>
 
         {/* Name */}
         <Reveal delay={0.2} y={40}>
-          <h1 className="font-sans font-bold text-black text-5xl md:text-7xl lg:text-8xl tracking-tight mb-4">
-            DrukMajster3D
-          </h1>
+          <div className="mb-4">
+            <h1 className="font-sans font-bold text-black text-5xl md:text-7xl lg:text-8xl tracking-tight">
+              DrukMajster3D
+            </h1>
+            <span className="font-sans text-gray-text text-lg md:text-xl tracking-tight">
+              Wielkopolska rzetelność
+            </span>
+          </div>
         </Reveal>
 
         {/* Printer Model */}
         <Reveal delay={0.3}>
           <div className="flex items-center gap-4 mb-10">
             <span className="font-mono text-gray-text text-xl md:text-2xl">
-              Statysus F170
+              amerykańska technologia STRATASYS
             </span>
           </div>
         </Reveal>
@@ -49,7 +53,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
         <Reveal delay={0.5}>
           <p className="font-sans text-black text-lg md:text-xl max-w-xl leading-relaxed mb-8">
             Twój partner w przemysłowym druku 3D.
-            Precyzyjna produkcja części, serwis i wsparcie dla Twojego biznesu.
+            Precyzyjna produkcja z materiałów: PLA, ABS, ASA, TPU.
           </p>
         </Reveal>
 
@@ -60,19 +64,19 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
               href="#contact"
               className="btn-underline font-sans font-bold text-black text-base py-2"
             >
-              Skontaktuj się
+              Zapytaj o cenę
             </a>
             <a
               href="#specs"
               className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors"
             >
-              Zobacz parametry
+              Przykłady zastosowań
             </a>
             <button
               onClick={onOpenGallery}
               className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors group"
             >
-              <span>Zobacz realizacje</span>
+              <span>Dlaczego my?</span>
             </button>
           </div>
         </Reveal>
@@ -81,22 +85,22 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
         <Reveal delay={0.7} width="100%">
           <div className="mt-20 grid grid-cols-3 gap-8 max-w-2xl">
             <div>
-              <span className="font-mono text-black text-3xl md:text-4xl block">
-                F170
+              <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
+                3-5 dni
               </span>
-              <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Model</span>
+              <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Czas realizacji</span>
             </div>
             <div>
-              <span className="font-mono text-black text-3xl md:text-4xl block flex">
-                <Counter end={254} suffix="³" />
+              <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
+                &gt;100 marek
               </span>
-              <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">mm komora</span>
+              <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Drukowaliśmy dla</span>
             </div>
             <div>
-              <span className="font-mono text-black text-3xl md:text-4xl block flex">
-                <Counter end={300} suffix="°C" />
+              <span className="font-mono text-black text-3xl md:text-4xl block whitespace-nowrap">
+                całą Europę
               </span>
-              <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Max temp</span>
+              <span className="font-sans text-gray-text text-xs uppercase tracking-wider mt-1 block">Obsługujemy</span>
             </div>
           </div>
         </Reveal>

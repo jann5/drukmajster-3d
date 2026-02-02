@@ -6,7 +6,7 @@ interface SidebarProps {
   onOpenGallery?: () => void;
 }
 
-const sections = ['Home', 'Specs', 'Benefits', 'Use Cases', 'Contact'];
+const sections = ['Home', 'Przykłady zastosowań', 'Benefits', 'Use Cases', 'Zapytaj o cenę'];
 
 export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarProps) {
   return (
@@ -56,7 +56,7 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
 
             {/* Tooltip */}
             <span className="absolute left-full ml-4 px-2 py-1 bg-black text-white text-xs font-mono opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out whitespace-nowrap pointer-events-none">
-              Realizacje
+              Dlaczego my?
             </span>
           </button>
         </nav>

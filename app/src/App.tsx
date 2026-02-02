@@ -3,7 +3,6 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { Sidebar } from './components/Sidebar';
 import { Footer } from './components/Footer';
 import { HomeSection } from './sections/HomeSection';
-import { AboutSection } from './sections/AboutSection';
 import { SpecsSection } from './sections/SpecsSection';
 import { BenefitsSection } from './sections/BenefitsSection';
 import { UseCasesSection } from './sections/UseCasesSection';

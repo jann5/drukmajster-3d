@@ -81,7 +81,7 @@ export function ContactSection() {
 
           <Reveal delay={0.1}>
             <h2 className="font-sans font-bold text-black text-3xl md:text-5xl mb-6">
-              Skontaktuj się
+              Zapytaj o cenę
             </h2>
           </Reveal>
 

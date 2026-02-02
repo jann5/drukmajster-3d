@@ -40,13 +40,13 @@ export function SpecsSection() {
         <div className="mb-24">
           <Reveal>
             <span className="font-mono text-gray-text text-xs uppercase tracking-widest block mb-4">
-              02 — Specyfikacja
+              02 — Zastosowania
             </span>
           </Reveal>
 
           <Reveal delay={0.1}>
             <h2 className="font-sans font-bold text-black text-3xl md:text-5xl mb-8">
-              Parametry techniczne
+              Przykłady zastosowań
             </h2>
           </Reveal>
 
