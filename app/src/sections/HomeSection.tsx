@@ -83,10 +83,10 @@ export function HomeSection({ }: HomeSectionProps) {
                 Parametry
               </a>
               <a
-                href="#use-cases"
+                href="#usecases"
                 className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors"
               >
-                Zastosowania
+                Zobacz realizacje
               </a>
             </div>
           </Reveal>
@@ -104,13 +104,13 @@ export function HomeSection({ }: HomeSectionProps) {
                 <span className="font-mono text-black text-4xl md:text-5xl block tracking-tighter">
                   &gt;100 firm
                 </span>
-                <span className="font-sans text-gray-text text-[10px] uppercase tracking-[0.2em] mt-3 block">Zadowolonych klientów</span>
+                <span className="font-sans text-gray-text text-[10px] uppercase tracking-[0.2em] mt-3 block">Drukowaliśmy dla</span>
               </div>
               <div>
                 <span className="font-mono text-black text-4xl md:text-5xl block tracking-tighter">
                   cała Europa
                 </span>
-                <span className="font-sans text-gray-text text-[10px] uppercase tracking-[0.2em] mt-3 block">Zasięg obsługi</span>
+                <span className="font-sans text-gray-text text-[10px] uppercase tracking-[0.2em] mt-3 block">Obsługujemy</span>
               </div>
             </div>
           </Reveal>

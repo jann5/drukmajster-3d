@@ -66,9 +66,9 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.6, duration: 0.5 }}
-          className="font-mono text-xs text-gray-text"
+          className="font-mono text-[10px] text-gray-text"
         >
-          © 2024
+          © {new Date().getFullYear()}
         </motion.div>
       </aside>
 
