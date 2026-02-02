@@ -80,13 +80,13 @@ export function HomeSection({ }: HomeSectionProps) {
                 href="#specs"
                 className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors"
               >
-                Przykłady zastosowań
+                Parametry
               </a>
               <a
-                href="#benefits"
+                href="#use-cases"
                 className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors"
               >
-                Dlaczego my?
+                Zastosowania
               </a>
             </div>
           </Reveal>

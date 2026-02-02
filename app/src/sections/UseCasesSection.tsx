@@ -62,7 +62,7 @@ export function UseCasesSection() {
 
           <Reveal delay={0.1}>
             <h2 className="font-sans font-bold text-black text-3xl md:text-5xl mb-8">
-              Branże i zastosowania
+              Przykłady zastosowań
             </h2>
           </Reveal>
 
