@@ -23,7 +23,7 @@ export default function App() {
 
   const scrollToSection = (index: number) => {
     setActiveSection(index); // Immediate update
-    const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
+    const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
     const element = document.getElementById(sectionIds[index]);
     if (element) {
       // Use Lenis for scrolling if available, or fallback
@@ -65,7 +65,7 @@ export default function App() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
+          const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
           const index = sectionIds.indexOf(entry.target.id);
           if (index !== -1) {
             // Only update if we're not currently scrolling via click (optional refinement, but simple set is usually fine)
@@ -75,7 +75,7 @@ export default function App() {
       });
     }, observerOptions);
 
-    const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
+    const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
     sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
@@ -103,7 +103,6 @@ export default function App() {
       {/* Main Content Container */}
       <main className="md:pl-20 w-full overflow-hidden">
         <HomeSection onOpenGallery={() => setIsGalleryOpen(true)} />
-        <AboutSection />
         <SpecsSection />
         <BenefitsSection />
         <UseCasesSection />
