@@ -2,6 +2,7 @@ import { Reveal } from '../components/ui/Reveal';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import printerImage from '../assets/printer-f170.png';
+import logo from '../assets/logo.png';
 
 interface HomeSectionProps {
   onOpenGallery?: () => void;
@@ -26,35 +27,42 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
       <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         {/* Text Content */}
         <motion.div style={{ opacity, y }} className="max-w-xl z-20">
-          {/* Label */}
-          <Reveal delay={0.1}>
-            <span className="font-mono text-gray-text text-[10px] md:text-xs uppercase tracking-[0.2em]">
-              WYDRUKI 3D NA DRUKARKACH PRZEMYSŁOWYCH
-            </span>
-          </Reveal>
-
-          {/* Name */}
-          <Reveal delay={0.2} y={40}>
-            <div className="mb-4 md:mb-2">
-              <h1 className="font-sans font-bold text-transparent bg-clip-text bg-gradient-to-b from-black to-neutral-500 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.9]">
-                DrukMajster3D
-              </h1>
-            </div>
-          </Reveal>
-
-          {/* Printer Model & Location */}
-          <Reveal delay={0.3}>
-            <div className="mb-8 md:mb-10 flex flex-col gap-2 md:gap-1">
-              <span className="font-mono text-gray-text text-[10px] md:text-xs uppercase tracking-widest">
-                amerykańska technologia STRATASYS
+          {/* Header Group */}
+          <div className="mb-8 md:mb-10">
+            <Reveal delay={0.1}>
+              <span className="font-mono text-gray-text text-sm sm:text-base uppercase tracking-[0.2em] mb-2 block">
+                WYDRUKI 3D NA DRUKARKACH PRZEMYSŁOWYCH
               </span>
-              <span className="font-sans text-gray-text text-[10px] md:text-xs uppercase tracking-widest">
-                Wielkopolska rzetelność
-              </span>
-            </div>
-          </Reveal>
+            </Reveal>
 
-          {/* Minimalist Line */}
+            {/* Logo + Title Row */}
+            <Reveal delay={0.2} y={40}>
+              <div className="relative mb-4">
+                {/* Logo - Positioned absolutely to the left */}
+                <img
+                  src={logo}
+                  alt="DrukMajster3D Logo"
+                  className="absolute right-full mr-1 sm:mr-1.5 md:mr-2 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 md:w-[4.5rem] md:h-[4.5rem] lg:w-20 lg:h-20 xl:w-24 xl:h-24 object-contain"
+                />
+                <h1 className="font-sans font-bold text-transparent bg-clip-text bg-gradient-to-b from-black to-neutral-500 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.9]">
+                  DrukMajster3D
+                </h1>
+              </div>
+            </Reveal>
+
+            <Reveal delay={0.3}>
+              <div className="flex flex-col gap-1">
+                <span className="font-mono text-gray-text text-sm sm:text-base uppercase tracking-widest">
+                  amerykańska technologia STRATASYS
+                </span>
+                <span className="font-mono text-gray-text text-sm sm:text-base uppercase tracking-widest">
+                  Wielkopolska rzetelność
+                </span>
+              </div>
+            </Reveal>
+          </div>
+
+          {/* Divider */}
           <motion.div
             initial={{ width: 0 }}
             whileInView={{ width: '100%' }}
@@ -63,38 +71,38 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
             className="h-px bg-black max-w-lg mb-8 md:mb-10"
           />
 
-          {/* Subtitle */}
+          {/* Body Text */}
           <Reveal delay={0.5}>
             <p className="font-sans text-black text-base md:text-lg lg:text-xl max-w-xl leading-relaxed mb-8">
               Twój partner w przemysłowym druku 3D. Precyzyjna produkcja z materiałów: PLA, ABS, ASA, TPU.
             </p>
           </Reveal>
 
-          {/* CTA Buttons */}
+          {/* Buttons - Single Line */}
           <Reveal delay={0.6}>
-            <div className="flex flex-wrap gap-x-8 gap-y-4">
+            <div className="flex items-center gap-x-8 whitespace-nowrap">
               <a
                 href="#contact"
-                className="btn-underline font-sans font-bold text-black text-sm md:text-base py-2"
+                className="btn-underline font-sans font-bold text-sm md:text-base py-2"
               >
                 Zapytaj o cenę
               </a>
               <a
                 href="#usecases"
-                className="btn-underline font-sans text-gray-text text-sm md:text-base py-2 hover:text-black transition-colors"
+                className="btn-underline font-sans text-sm md:text-base py-2"
               >
                 Przykłady zastosowań
               </a>
               <button
                 onClick={onOpenGallery}
-                className="btn-underline font-sans text-gray-text text-sm md:text-base py-2 hover:text-black transition-colors"
+                className="btn-underline font-sans text-sm md:text-base py-2"
               >
                 Zobacz realizacje
               </button>
             </div>
           </Reveal>
 
-          {/* Stats Row */}
+          {/* Stats */}
           <Reveal delay={0.7} width="100%">
             <div className="mt-16 md:mt-20 grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-10 max-w-2xl">
               <div>

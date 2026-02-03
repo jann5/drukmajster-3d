@@ -22,7 +22,7 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
           className="w-14 h-14 cursor-pointer mb-10"
           onClick={() => onNavigate(0)}
         >
-          <img src={logo} alt="Logo" className="w-full h-full object-contain filter grayscale brightness-0 hover:grayscale-0 hover:brightness-100 transition-all duration-300" />
+          <img src={logo} alt="Logo" className="w-full h-full object-contain transition-transform duration-300 hover:scale-110" />
         </motion.div>
 
         {/* Vertical Navigation */}
@@ -82,7 +82,7 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
           className="w-12 h-12 cursor-pointer"
           onClick={() => onNavigate(0)}
         >
-          <img src={logo} alt="Logo" className="w-full h-full object-contain brightness-0" />
+          <img src={logo} alt="Logo" className="w-full h-full object-contain transition-transform duration-300 hover:scale-110" />
         </motion.div>
 
         <nav className="flex items-center gap-3">

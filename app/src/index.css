@@ -164,6 +164,7 @@
   .btn-underline {
     position: relative;
     display: inline-block;
+    color: #1d4ed8;
   }
 
   .btn-underline::after {
@@ -173,7 +174,7 @@
     left: 0;
     width: 0;
     height: 1px;
-    background-color: #000000;
+    background-color: #1d4ed8;
     transition: width 0.4s var(--ease-premium);
   }
 

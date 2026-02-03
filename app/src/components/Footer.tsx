@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import logo from '../assets/logo.png';
 
 export function Footer() {
   const currentYear = new Date().getFullYear();
@@ -15,9 +16,9 @@ export function Footer() {
         <div className="grid md:grid-cols-3 gap-8 mb-12">
           {/* Brand */}
           <div>
-            <span className="font-sans font-bold text-black text-lg block mb-2">
-              DM
-            </span>
+            <div className="mb-4 w-12 h-12">
+              <img src={logo} alt="Logo" className="w-full h-full object-contain" />
+            </div>
             <p className="font-sans text-gray-text text-sm">
               DrukMajster3D<br />
               Twój partner w druku 3D

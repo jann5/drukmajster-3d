@@ -91,7 +91,7 @@ export function BenefitsSection() {
             </p>
             <a
               href="#contact"
-              className="btn-underline font-sans font-bold text-black text-lg py-2 inline-block hover:text-primary transition-colors duration-300"
+              className="btn-underline font-sans font-bold text-lg py-2 inline-block"
             >
               Umów konsultację
             </a>
