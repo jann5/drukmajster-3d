@@ -51,7 +51,7 @@ export function BenefitsSection() {
 
           <Reveal delay={0.1}>
             <h2 className="font-sans font-bold text-black text-3xl md:text-5xl mb-8">
-              Nasze atuty
+              Dlaczego warto wybrać nasz druk 3D?
             </h2>
           </Reveal>
 

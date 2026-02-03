@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://drukmajster3d.pl/sitemap.xml

@@ -130,7 +130,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
           >
             <img
               src={printerImage}
-              alt="Stratasys F170 Printer"
+              alt="Przemysłowa drukarka 3D Stratasys F170 - Poznań DrukMajster3D"
               className="w-full h-auto drop-shadow-[0_40px_100px_rgba(0,0,0,0.25)]"
             />
           </motion.div>

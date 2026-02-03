@@ -119,7 +119,7 @@ export function GalleryOverlay({ isOpen, onClose }: GalleryOverlayProps) {
                                             >
                                                 <img
                                                     src={project.image}
-                                                    alt={project.title}
+                                                    alt={`Realizacja druku 3D: ${project.title} - kategoria ${project.category}`}
                                                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                                                 />
 
@@ -173,7 +173,7 @@ export function GalleryOverlay({ isOpen, onClose }: GalleryOverlayProps) {
                         >
                             <img
                                 src={selectedProject.image}
-                                alt={selectedProject.title}
+                                alt={`Pełnowymiarowy detal druku 3D: ${selectedProject.title}`}
                                 className="max-h-[80vh] w-auto object-contain shadow-2xl"
                             />
 
