@@ -80,17 +80,11 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
               >
                 Zapytaj o cenę
               </a>
-              <a
-                href="#usecases"
-                className="btn-underline font-sans text-sm md:text-base py-2"
-              >
-                Przykłady zastosowań
-              </a>
               <button
                 onClick={onOpenGallery}
                 className="btn-underline font-sans text-sm md:text-base py-2"
               >
-                Zobacz realizacje
+                Przykłady zastosowań
               </button>
             </div>
           </Reveal>

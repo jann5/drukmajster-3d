@@ -1,8 +1,6 @@
-import { useState } from 'react';
-import { ChevronDown } from 'lucide-react';
 import { Reveal } from '../components/ui/Reveal';
 import { Counter } from '../components/ui/Counter';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 const useCases = [
   {
@@ -37,25 +35,7 @@ const useCases = [
   }
 ];
 
-const specs = [
-  { label: 'Obszar roboczy', value: '254 x 254 x 254', unit: 'mm' },
-  { label: 'Materiały modelowe', value: 'ABS, PLA, ASA, ABS-CF10, TPU 92A' },
-  { label: 'Materiał podporowy', value: 'Rozpuszczalny QSR' },
-  { label: 'Wysokość warstwy', value: '0.127 | 0.178 | 0.254 | 0.330', unit: 'mm' },
-  { label: 'Dokładność części', value: '±0,200 mm lub ±0,002 mm/mm' },
-  { label: 'Liczba kieszeni', value: '2 (1 model / 1 support)' },
-  { label: 'Wymiary zewnętrzne', value: '1626 x 864 x 711', unit: 'mm' },
-  { label: 'Waga urządzenia', value: '227', unit: 'kg (z materiałami)' },
-  { label: 'Głośność pracy', value: 'Max. 46 dB (tryb jałowy: 35 dB)' },
-  { label: 'Oprogramowanie', value: 'GrabCAD Print / Print Pro' },
-  { label: 'Łączność', value: 'Ethernet / Wi-Fi (WPA2-PSK)' },
-  { label: 'System operacyjny', value: 'Windows 10/11 (min. 8GB RAM)' },
-];
-
 export function UseCasesSection() {
-  const [showSpecs, setShowSpecs] = useState(false);
-  const leftColumn = specs.filter((_, i) => i % 2 === 0);
-  const rightColumn = specs.filter((_, i) => i % 2 !== 0);
 
   return (
     <section
@@ -110,62 +90,7 @@ export function UseCasesSection() {
           ))}
         </div>
 
-        {/* Collapsible Specs */}
-        <div className="border-t border-gray-100 pt-16">
-          <button
-            onClick={() => setShowSpecs(!showSpecs)}
-            className="flex items-center justify-between w-full md:w-auto md:justify-start gap-6 group hover:text-gray-600 transition-colors py-4 mb-4"
-          >
-            <span className="font-sans font-bold text-black text-xs md:text-sm uppercase tracking-[0.15em] transition-colors group-hover:text-gray-600">
-              Parametry techniczne (rozwiń)
-            </span>
-            <motion.div
-              animate={{ rotate: showSpecs ? 180 : 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <ChevronDown size={20} className="text-black group-hover:text-gray-600 transition-colors" />
-            </motion.div>
-          </button>
 
-          <AnimatePresence>
-            {showSpecs && (
-              <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
-                exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                className="overflow-hidden"
-              >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 pt-8 border-t border-black/5">
-                  <div className="space-y-0">
-                    {leftColumn.map((spec) => (
-                      <div key={spec.label} className="micro-border py-4 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
-                        <span className="font-mono text-gray-text text-[9px] uppercase tracking-wider group-hover:text-black transition-colors">
-                          {spec.label}
-                        </span>
-                        <span className="font-sans text-black text-sm text-right font-medium">
-                          {spec.value}{spec.unit && <span className="font-mono text-gray-text text-[10px] ml-1">{spec.unit}</span>}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="space-y-0">
-                    {rightColumn.map((spec) => (
-                      <div key={spec.label} className="micro-border py-4 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
-                        <span className="font-mono text-gray-text text-[9px] uppercase tracking-wider group-hover:text-black transition-colors">
-                          {spec.label}
-                        </span>
-                        <span className="font-sans text-black text-sm text-right font-medium">
-                          {spec.value}{spec.unit && <span className="font-mono text-gray-text text-[10px] ml-1">{spec.unit}</span>}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
 
         {/* Info Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 relative border-t border-gray-100 pt-20 mt-16">
