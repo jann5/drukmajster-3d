@@ -36,7 +36,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
           {/* Name */}
           <Reveal delay={0.2} y={40}>
             <div className="mb-4 md:mb-2">
-              <h1 className="font-sans font-bold text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.9]">
+              <h1 className="font-sans font-bold text-transparent bg-clip-text bg-gradient-to-b from-black to-neutral-500 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.9]">
                 DrukMajster3D
               </h1>
             </div>
