@@ -3,6 +3,7 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { Sidebar } from './components/Sidebar';
 import { Footer } from './components/Footer';
 import { HomeSection } from './sections/HomeSection';
+import { AboutSection } from './sections/AboutSection';
 import { SpecsSection } from './sections/SpecsSection';
 import { BenefitsSection } from './sections/BenefitsSection';
 import { UseCasesSection } from './sections/UseCasesSection';
@@ -24,7 +25,7 @@ export default function App() {
 
   const scrollToSection = (index: number) => {
     setActiveSection(index); // Immediate update
-    const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
+    const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
     const element = document.getElementById(sectionIds[index]);
     if (element) {
       const lenis = (window as any).lenis;
@@ -74,14 +75,14 @@ export default function App() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
+          const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
           const index = sectionIds.indexOf(entry.target.id);
           if (index !== -1) setActiveSection(index);
         }
       });
     }, observerOptions);
 
-    const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
+    const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
     sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
@@ -117,6 +118,7 @@ export default function App() {
       {/* Main Content Container - removed overflow-hidden to fix shadow clipping */}
       <main className="md:pl-20 w-full overflow-x-hidden">
         <HomeSection onOpenGallery={() => setIsGalleryOpen(true)} />
+        <AboutSection />
         <SpecsSection />
         <BenefitsSection />
         <UseCasesSection />
