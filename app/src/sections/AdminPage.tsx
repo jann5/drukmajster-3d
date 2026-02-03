@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Reveal } from '../components/ui/Reveal';
-import { Trash2, Plus, LogOut, Image as ImageIcon } from 'lucide-react';
+import { Trash2, Plus, LogOut, Image as ImageIcon, Eye, EyeOff, Upload } from 'lucide-react';
 
 interface Project {
     id: number;
@@ -23,8 +23,10 @@ export function AdminPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+    const [showPassword, setShowPassword] = useState(false);
     const [projects, setProjects] = useState<Project[]>([]);
     const [error, setError] = useState('');
+    const fileInputRef = useRef<HTMLInputElement>(null);
 
     // New Project Form
     const [newProject, setNewProject] = useState({
@@ -71,6 +73,17 @@ export function AdminPage() {
         localStorage.setItem('drukmajster_gallery', JSON.stringify(updated));
     };
 
+    const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onloadend = () => {
+                setNewProject({ ...newProject, image: reader.result as string });
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
     const addProject = (e: React.FormEvent) => {
         e.preventDefault();
         if (!newProject.title || !newProject.image) return;
@@ -84,6 +97,7 @@ export function AdminPage() {
         setProjects(updated);
         localStorage.setItem('drukmajster_gallery', JSON.stringify(updated));
         setNewProject({ title: '', category: '', image: '', size: 'medium' });
+        if (fileInputRef.current) fileInputRef.current.value = '';
     };
 
     if (!isLoggedIn) {
@@ -99,17 +113,26 @@ export function AdminPage() {
                                     type="text"
                                     value={login}
                                     onChange={(e) => setLogin(e.target.value)}
-                                    className="w-full bg-gray-50 border border-gray-100 py-3 px-4 focus:border-black outline-none transition-colors"
+                                    className="w-full bg-gray-50 border border-gray-100 py-3 px-4 focus:border-black outline-none transition-colors font-sans"
                                 />
                             </div>
                             <div>
                                 <label className="font-mono text-[10px] uppercase tracking-widest text-gray-400 block mb-2">Hasło</label>
-                                <input
-                                    type="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full bg-gray-50 border border-gray-100 py-3 px-4 focus:border-black outline-none transition-colors"
-                                />
+                                <div className="relative">
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        className="w-full bg-gray-50 border border-gray-100 py-3 px-4 focus:border-black outline-none transition-colors font-sans"
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-black transition-colors"
+                                    >
+                                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                    </button>
+                                </div>
                             </div>
                             {error && <p className="text-red-500 text-xs font-sans">{error}</p>}
                             <button
@@ -170,16 +193,52 @@ export function AdminPage() {
                                     className="w-full bg-gray-50 border border-gray-100 py-3 px-4 focus:border-black outline-none transition-colors"
                                 />
                             </div>
+
+                            {/* File Upload Area */}
                             <div>
-                                <label className="font-mono text-[10px] uppercase tracking-widest text-gray-400 block mb-2">URL Zdjęcia / Base64</label>
+                                <label className="font-mono text-[10px] uppercase tracking-widest text-gray-400 block mb-2">Zdjęcie</label>
+                                <div
+                                    onClick={() => fileInputRef.current?.click()}
+                                    className="w-full border-2 border-dashed border-gray-200 rounded-lg p-8 flex flex-col items-center justify-center gap-2 hover:border-black cursor-pointer transition-all bg-gray-50 overflow-hidden relative group"
+                                >
+                                    {newProject.image ? (
+                                        <>
+                                            <img src={newProject.image} alt="Preview" className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:opacity-10 transition-opacity" />
+                                            <ImageIcon className="text-black" size={24} />
+                                            <span className="text-xs font-sans text-black font-medium z-10">Zmień plik</span>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Upload className="text-gray-400" size={24} />
+                                            <span className="text-xs font-sans text-gray-400">Wybierz plik z dysku</span>
+                                        </>
+                                    )}
+                                    <input
+                                        type="file"
+                                        ref={fileInputRef}
+                                        onChange={handleFileUpload}
+                                        accept="image/*"
+                                        className="hidden"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="py-2 flex items-center gap-4">
+                                <div className="h-px bg-gray-100 flex-grow"></div>
+                                <span className="text-[10px] font-mono text-gray-300 uppercase tracking-widest">LUB URL</span>
+                                <div className="h-px bg-gray-100 flex-grow"></div>
+                            </div>
+
+                            <div>
                                 <textarea
-                                    rows={4}
-                                    placeholder="Wklej URL lub Base64 zdjęcia"
-                                    value={newProject.image}
+                                    rows={2}
+                                    placeholder="Wklej URL zdjęcia"
+                                    value={newProject.image.startsWith('data:') ? '' : newProject.image}
                                     onChange={(e) => setNewProject({ ...newProject, image: e.target.value })}
-                                    className="w-full bg-gray-50 border border-gray-100 py-3 px-4 focus:border-black outline-none transition-colors resize-none text-xs"
+                                    className="w-full bg-gray-50 border border-gray-100 py-3 px-4 focus:border-black outline-none transition-colors resize-none text-xs font-mono"
                                 />
                             </div>
+
                             <div>
                                 <label className="font-mono text-[10px] uppercase tracking-widest text-gray-400 block mb-2">Rozmiar w siatce</label>
                                 <select
@@ -236,3 +295,4 @@ export function AdminPage() {
         </div>
     );
 }
+

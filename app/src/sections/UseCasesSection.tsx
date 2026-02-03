@@ -6,7 +6,7 @@ export function UseCasesSection() {
   return (
     <section
       id="usecases"
-      className="min-h-[50vh] flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 bg-gray-50/50"
+      className="min-h-[50vh] flex flex-col justify-center px-6 md:px-16 lg:px-24 py-24 bg-white"
     >
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
