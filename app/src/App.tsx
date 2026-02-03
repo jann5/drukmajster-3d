@@ -3,9 +3,8 @@ import { motion, useScroll, useSpring } from 'framer-motion';
 import { Sidebar } from './components/Sidebar';
 import { Footer } from './components/Footer';
 import { HomeSection } from './sections/HomeSection';
-import { AboutSection } from './sections/AboutSection';
 import { BenefitsSection } from './sections/BenefitsSection';
-import { UseCasesSection } from './sections/UseCasesSection';
+// import { UseCasesSection } from './sections/UseCasesSection';
 import { ContactSection } from './sections/ContactSection';
 import { GalleryOverlay } from './components/GalleryOverlay';
 import { AdminPage } from './sections/AdminPage';
@@ -22,9 +21,10 @@ export default function App() {
     restDelta: 0.001
   });
 
+  // 3 dots: home (index 0), benefits (index 1), contact (index 2)
   const scrollToSection = (index: number) => {
-    setActiveSection(index); // Immediate update
-    const sectionIds = ['home', 'about', 'usecases', 'benefits', 'contact'];
+    setActiveSection(index);
+    const sectionIds = ['home', 'benefits', 'contact'];
     const element = document.getElementById(sectionIds[index]);
     if (element) {
       const lenis = (window as any).lenis;
@@ -33,6 +33,16 @@ export default function App() {
       } else {
         element.scrollIntoView({ behavior: 'smooth' });
       }
+    }
+  };
+
+  const handleHomeClick = () => {
+    setActiveSection(0);
+    const element = document.getElementById('home');
+    if (element) {
+      const lenis = (window as any).lenis;
+      if (lenis) lenis.scrollTo(element);
+      else element.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -81,24 +91,25 @@ export default function App() {
     }
     requestAnimationFrame(raf);
 
+    // Observe 3 sections: home, benefits, contact
     const observerOptions = {
       root: null,
-      rootMargin: '-20% 0px -20% 0px',
-      threshold: 0.1
+      rootMargin: '-40% 0px -40% 0px',
+      threshold: 0
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const sectionIds = ['home', 'about', 'usecases', 'benefits', 'contact'];
+          const sectionIds = ['home', 'benefits', 'contact'];
           const index = sectionIds.indexOf(entry.target.id);
           if (index !== -1) setActiveSection(index);
         }
       });
     }, observerOptions);
 
-    const sectionIds = ['home', 'about', 'usecases', 'benefits', 'contact'];
-    sectionIds.forEach((id) => {
+    const observedIds = ['home', 'benefits', 'contact'];
+    observedIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
@@ -135,20 +146,20 @@ export default function App() {
       <Sidebar
         activeSection={activeSection}
         onNavigate={scrollToSection}
+        onHomeClick={handleHomeClick}
         onOpenGallery={() => {
           window.location.hash = 'realizacje';
           setIsGalleryOpen(true);
         }}
       />
 
-      {/* Main Content Container - removed overflow-hidden to fix shadow clipping */}
+      {/* Main Content */}
       <main className="md:pl-20 w-full overflow-x-hidden">
         <HomeSection onOpenGallery={() => {
           window.location.hash = 'realizacje';
           setIsGalleryOpen(true);
         }} />
-        <AboutSection />
-        <UseCasesSection />
+        {/* UseCasesSection commented out */}
         <BenefitsSection />
         <ContactSection />
         <Footer />
@@ -156,4 +167,3 @@ export default function App() {
     </div>
   );
 }
-

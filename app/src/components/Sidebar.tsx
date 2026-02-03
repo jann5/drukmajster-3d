@@ -4,28 +4,30 @@ import logo from '../assets/logo.png';
 interface SidebarProps {
   activeSection: number;
   onNavigate: (index: number) => void;
+  onHomeClick?: () => void;
   onOpenGallery?: () => void;
 }
 
-const sections = ['Home', 'O technologii', 'Przykłady zastosowań', 'Korzyści', 'Kontakt'];
+// 3 navigation dots: Home, Benefits (Dlaczego my), Contact
+const sections = ['Home', 'Dlaczego my', 'Kontakt'];
 
-export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarProps) {
+export function Sidebar({ activeSection, onNavigate, onHomeClick, onOpenGallery }: SidebarProps) {
   return (
     <>
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex fixed left-0 top-0 h-screen w-20 flex-col items-center justify-between py-8 bg-white border-r border-gray z-50">
-        {/* Initials */}
+        {/* Logo */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
           className="w-14 h-14 cursor-pointer mb-10"
-          onClick={() => onNavigate(0)}
+          onClick={onHomeClick}
         >
           <img src={logo} alt="Logo" className="w-full h-full object-contain transition-transform duration-300 hover:scale-110" />
         </motion.div>
 
-        {/* Vertical Navigation */}
+        {/* Vertical Navigation - 3 dots */}
         <nav className="flex flex-col items-center gap-5">
           {sections.map((section, index) => (
             <button
@@ -45,7 +47,7 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
             </button>
           ))}
 
-          {/* Gallery Button */}
+          {/* Gallery Button - "+" */}
           <button
             onClick={onOpenGallery}
             className="group relative flex items-center justify-center w-8 h-8 mt-4"
@@ -80,7 +82,7 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
           className="w-12 h-12 cursor-pointer"
-          onClick={() => onNavigate(0)}
+          onClick={onHomeClick}
         >
           <img src={logo} alt="Logo" className="w-full h-full object-contain transition-transform duration-300 hover:scale-110" />
         </motion.div>
@@ -105,7 +107,7 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
                 {activeSection === index ? '●' : '○'}
               </motion.span>
 
-              {/* Optional: Indicator line for active on mobile header */}
+              {/* Indicator line for active on mobile */}
               {activeSection === index && (
                 <motion.div
                   layoutId="activeIndicatorMobile"
