@@ -133,8 +133,6 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
               alt="Stratasys F170 Printer"
               className="w-full h-auto drop-shadow-[0_40px_100px_rgba(0,0,0,0.25)]"
             />
-            {/* Massive glow background */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-to-tr from-transparent via-gray-100 to-transparent rounded-full -z-10 blur-[100px] md:blur-[150px] opacity-60" />
           </motion.div>
         </div>
       </div>
