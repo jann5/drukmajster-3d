@@ -263,8 +263,8 @@ export function ContactSection() {
                     <span className="font-mono text-gray-text text-[10px] md:text-xs uppercase tracking-[0.2em] block mb-2">
                       Zadzwoń
                     </span>
-                    <a href="tel:+48500600700" className="font-sans text-black text-lg md:text-xl hover:text-gray-600 transition-colors">
-                      +48 500 600 700
+                    <a href="tel:+48509480456" className="font-sans text-black text-lg md:text-xl hover:text-gray-600 transition-colors">
+                      +48 509 480 456
                     </a>
                   </div>
                 </div>

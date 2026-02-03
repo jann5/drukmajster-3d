@@ -24,7 +24,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
       ref={targetRef}
       className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-24 md:pt-0 relative bg-white"
     >
-      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 xl:gap-24 items-center">
         {/* Text Content */}
         <motion.div style={{ opacity, y }} className="max-w-xl z-20">
           {/* Header Group */}
@@ -37,16 +37,16 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
 
             {/* Logo + Title Row */}
             <Reveal delay={0.2} y={40}>
-              <div className="relative mb-4">
-                {/* Logo - Positioned absolutely to the left */}
-                <img
-                  src={logo}
-                  alt="DrukMajster3D Logo"
-                  className="absolute right-full mr-1 sm:mr-1.5 md:mr-2 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-14 sm:h-14 md:w-[4.5rem] md:h-[4.5rem] lg:w-20 lg:h-20 xl:w-24 xl:h-24 object-contain"
-                />
+              <div className="relative mb-4 inline-block">
                 <h1 className="font-sans font-bold text-transparent bg-clip-text bg-gradient-to-b from-black to-neutral-500 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.9]">
                   DrukMajster3D
                 </h1>
+                {/* Logo - Positioned absolutely to the right of "3D" */}
+                <img
+                  src={logo}
+                  alt="DrukMajster3D Logo"
+                  className="absolute left-full ml-0 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-32 xl:h-32 object-contain"
+                />
               </div>
             </Reveal>
 
@@ -134,7 +134,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
             initial={{ opacity: 0, scale: 1, x: 100 }}
             animate={{ opacity: 1, scale: 1.1, x: 0 }}
             transition={{ delay: 0.4, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[1000px] xl:max-w-[1200px] translate-x-[15%] sm:translate-x-[10%] md:translate-x-0 lg:translate-x-24 xl:translate-x-48 lg:-mb-56 relative"
+            className="w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[800px] xl:max-w-[1100px] translate-x-[15%] sm:translate-x-[10%] md:translate-x-12 lg:translate-x-40 xl:translate-x-64 lg:-mb-56 relative"
           >
             <img
               src={printerImage}
