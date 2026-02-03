@@ -7,7 +7,6 @@ import { SpecsSection } from './sections/SpecsSection';
 import { BenefitsSection } from './sections/BenefitsSection';
 import { UseCasesSection } from './sections/UseCasesSection';
 import { ContactSection } from './sections/ContactSection';
-import { KnowledgeSection } from './sections/KnowledgeSection';
 import { GalleryOverlay } from './components/GalleryOverlay';
 import { AdminPage } from './sections/AdminPage';
 import Lenis from 'lenis';
@@ -25,7 +24,7 @@ export default function App() {
 
   const scrollToSection = (index: number) => {
     setActiveSection(index); // Immediate update
-    const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'knowledge', 'contact'];
+    const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
     const element = document.getElementById(sectionIds[index]);
     if (element) {
       const lenis = (window as any).lenis;
@@ -75,14 +74,14 @@ export default function App() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'knowledge', 'contact'];
+          const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
           const index = sectionIds.indexOf(entry.target.id);
           if (index !== -1) setActiveSection(index);
         }
       });
     }, observerOptions);
 
-    const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'knowledge', 'contact'];
+    const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
     sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
@@ -121,7 +120,6 @@ export default function App() {
         <SpecsSection />
         <BenefitsSection />
         <UseCasesSection />
-        <KnowledgeSection />
         <ContactSection />
         <Footer />
       </main>
