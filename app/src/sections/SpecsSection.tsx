@@ -30,6 +30,7 @@ const specs: SpecItem[] = [
 
 const useCases = [
   {
+    number: '01',
     industry: 'Automotive',
     title: 'Przemysł motoryzacyjny',
     applications: [
@@ -39,6 +40,7 @@ const useCases = [
     ]
   },
   {
+    number: '02',
     industry: 'Manufacturing',
     title: 'Produkcja przemysłowa',
     applications: [
@@ -48,6 +50,7 @@ const useCases = [
     ]
   },
   {
+    number: '03',
     industry: 'Medical',
     title: 'Medycyna',
     applications: [
@@ -70,15 +73,15 @@ export function SpecsSection() {
     >
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
-        <div className="mb-24">
+        <div className="mb-20 md:mb-24">
           <Reveal>
-            <span className="font-mono text-gray-text text-xs uppercase tracking-widest block mb-4">
+            <span className="font-mono text-gray-text text-xs uppercase tracking-[0.2em] block mb-4">
               02 — Przykłady zastosowań
             </span>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h2 className="font-sans font-bold text-black text-3xl md:text-5xl mb-8">
+            <h2 className="font-sans font-bold text-black text-3xl md:text-5xl mb-8 tracking-tight">
               Zastosowania przemysłowe
             </h2>
           </Reveal>
@@ -93,21 +96,21 @@ export function SpecsSection() {
         </div>
 
         {/* Applications Grid */}
-        <div className="grid md:grid-cols-3 gap-12 mb-32">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16 lg:gap-24 mb-24 md:mb-32">
           {useCases.map((useCase, index) => (
             <Reveal key={useCase.industry} delay={0.2 + index * 0.1} width="100%">
-              <div className="space-y-6">
-                <span className="font-mono text-gray-text text-[10px] uppercase tracking-[0.2em]">
-                  {useCase.industry}
+              <div className="group hover:-translate-y-2 transition-transform duration-500 ease-premium">
+                <span className="font-mono text-gray-text text-[10px] uppercase tracking-[0.2em] block mb-4">
+                  {useCase.number} — {useCase.industry}
                 </span>
-                <h3 className="font-sans font-bold text-black text-2xl">
+                <h3 className="font-sans font-bold text-black text-2xl mb-6 group-hover:underline decoration-1 underline-offset-[12px] transition-all duration-500">
                   {useCase.title}
                 </h3>
-                <ul className="space-y-3">
+                <ul className="space-y-4">
                   {useCase.applications.map((app, appIndex) => (
-                    <li key={appIndex} className="font-sans text-gray-text text-sm flex items-start gap-3">
-                      <span className="text-black opacity-30 mt-1">—</span>
-                      <span>{app}</span>
+                    <li key={appIndex} className="font-sans text-gray-text text-sm md:text-base flex items-start gap-3 group/item">
+                      <span className="text-black opacity-30 mt-1 transition-opacity group-hover/item:opacity-100">—</span>
+                      <span className="group-hover/item:text-black transition-colors duration-300">{app}</span>
                     </li>
                   ))}
                 </ul>
@@ -117,19 +120,19 @@ export function SpecsSection() {
         </div>
 
         {/* Collapsible Specs */}
-        <div className="border-t border-gray-100 pt-12">
+        <div className="border-t border-gray-100 pt-16 md:pt-20">
           <button
             onClick={() => setShowSpecs(!showSpecs)}
-            className="flex items-center gap-4 group"
+            className="flex items-center justify-between w-full md:w-auto md:justify-start gap-6 group hover:text-gray-600 transition-colors py-4"
           >
-            <span className="font-sans font-bold text-black text-sm uppercase tracking-widest">
+            <span className="font-sans font-bold text-black text-xs md:text-sm uppercase tracking-[0.15em] transition-colors group-hover:text-gray-600">
               Parametry techniczne (rozwiń)
             </span>
             <motion.div
               animate={{ rotate: showSpecs ? 180 : 0 }}
-              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             >
-              <ChevronDown size={18} className="text-black" />
+              <ChevronDown size={20} className="text-black group-hover:text-gray-600 transition-colors" />
             </motion.div>
           </button>
 
@@ -139,35 +142,35 @@ export function SpecsSection() {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
                 className="overflow-hidden"
               >
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-0 pt-16">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-16 lg:gap-x-24 pt-12 md:pt-16">
                   {/* Left Column */}
-                  <div>
+                  <div className="space-y-0">
                     {leftColumn.map((spec) => (
-                      <div key={spec.label} className="micro-border py-6 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
-                        <span className="font-mono text-gray-text text-[10px] uppercase tracking-wider group-hover:text-black transition-colors">
+                      <div key={spec.label} className="micro-border py-5 md:py-6 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
+                        <span className="font-mono text-gray-text text-[9px] md:text-[10px] uppercase tracking-wider group-hover:text-black transition-colors">
                           {spec.label}
                         </span>
-                        <span className="font-sans text-black text-base text-right font-medium">
+                        <span className="font-sans text-black text-sm md:text-base text-right font-medium">
                           {spec.value}
-                          {spec.unit && <span className="font-mono text-gray-text text-xs ml-1">{spec.unit}</span>}
+                          {spec.unit && <span className="font-mono text-gray-text text-[10px] md:text-xs ml-1">{spec.unit}</span>}
                         </span>
                       </div>
                     ))}
                   </div>
 
                   {/* Right Column */}
-                  <div>
+                  <div className="space-y-0">
                     {rightColumn.map((spec) => (
-                      <div key={spec.label} className="micro-border py-6 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
-                        <span className="font-mono text-gray-text text-[10px] uppercase tracking-wider group-hover:text-black transition-colors">
+                      <div key={spec.label} className="micro-border py-5 md:py-6 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
+                        <span className="font-mono text-gray-text text-[9px] md:text-[10px] uppercase tracking-wider group-hover:text-black transition-colors">
                           {spec.label}
                         </span>
-                        <span className="font-sans text-black text-base text-right font-medium">
+                        <span className="font-sans text-black text-sm md:text-base text-right font-medium">
                           {spec.value}
-                          {spec.unit && <span className="font-mono text-gray-text text-xs ml-1">{spec.unit}</span>}
+                          {spec.unit && <span className="font-mono text-gray-text text-[10px] md:text-xs ml-1">{spec.unit}</span>}
                         </span>
                       </div>
                     ))}

@@ -65,17 +65,17 @@ export function BenefitsSection() {
         </div>
 
         {/* Benefits Grid */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12 md:gap-y-16">
           {benefits.map((benefit, index) => (
             <Reveal key={benefit.number} delay={0.2 + index * 0.1} width="100%">
-              <div className="group hover:-translate-y-2 transition-transform duration-300 ease-premium">
-                <span className="font-mono text-gray-text text-xs block mb-4">
+              <div className="group hover:-translate-y-2 transition-transform duration-500 ease-premium">
+                <span className="font-mono text-gray-text text-[10px] md:text-xs block mb-3 md:mb-4">
                   {benefit.number}
                 </span>
-                <h3 className="font-sans font-bold text-black text-xl mb-3 group-hover:underline decoration-1 underline-offset-4">
+                <h3 className="font-sans font-bold text-black text-xl md:text-2xl mb-3 group-hover:underline decoration-1 underline-offset-[8px] transition-all duration-500">
                   {benefit.title}
                 </h3>
-                <p className="font-sans text-gray-text text-sm leading-relaxed max-w-[35ch]">
+                <p className="font-sans text-gray-text text-sm md:text-base leading-relaxed max-w-[35ch]">
                   {benefit.description}
                 </p>
               </div>

@@ -33,38 +33,38 @@ export function UseCasesSection() {
         </div>
 
         {/* Info Stats */}
-        <div className="grid md:grid-cols-3 gap-12 relative">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 relative">
           <Reveal delay={0.4} className="pt-8">
             <div className="border-l-2 border-black pl-6">
-              <span className="font-mono text-black text-4xl block mb-2">
+              <span className="font-mono text-black text-3xl md:text-4xl block mb-2">
                 <Counter end={50} suffix="%+" />
               </span>
-              <span className="font-sans text-gray-text text-sm">Redukcja czasu prototypowania</span>
+              <span className="font-sans text-gray-text text-xs md:text-sm uppercase tracking-wider">Redukcja czasu prototypowania</span>
             </div>
           </Reveal>
 
           <Reveal delay={0.5} className="pt-8">
             <div className="border-l-2 border-black pl-6">
-              <span className="font-mono text-black text-4xl block mb-2">
+              <span className="font-mono text-black text-3xl md:text-4xl block mb-2">
                 <Counter end={90} suffix="%" />
               </span>
-              <span className="font-sans text-gray-text text-sm">Oszczędność na narzędziach</span>
+              <span className="font-sans text-gray-text text-xs md:text-sm uppercase tracking-wider">Oszczędność na narzędziach</span>
             </div>
           </Reveal>
 
           <Reveal delay={0.6} className="pt-8">
             <div className="border-l-2 border-black pl-6">
-              <span className="font-mono text-black text-4xl block mb-2">
+              <span className="font-mono text-black text-3xl md:text-4xl block mb-2">
                 <Counter end={24} suffix="h" />
               </span>
-              <span className="font-sans text-gray-text text-sm">Średni czas realizacji części</span>
+              <span className="font-sans text-gray-text text-xs md:text-sm uppercase tracking-wider">Średni czas realizacji części</span>
             </div>
           </Reveal>
         </div>
 
         <Reveal delay={0.7} width="100%">
-          <div className="mt-24 p-8 md:p-12 border border-gray-100 bg-white">
-            <p className="font-sans text-gray-text text-lg leading-relaxed max-w-3xl">
+          <div className="mt-20 md:mt-24 p-8 md:p-12 border border-black/5 bg-white hover:border-black/10 transition-colors duration-500 group">
+            <p className="font-sans text-gray-text text-base md:text-lg leading-relaxed max-w-3xl group-hover:text-black transition-colors duration-500">
               Wykorzystujemy przemysłową technologię FDM marki Stratasys, która gwarantuje powtarzalność geometryczną i parametry wytrzymałościowe niedostępne dla drukarek klasy desktop. Każdy wydruk przechodzi kontrolę jakości przed wysyłką do klienta.
             </p>
           </div>

@@ -102,18 +102,20 @@ export function ContactSection() {
         </div>
 
         {/* Content Grid */}
-        <div className="grid md:grid-cols-2 gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 md:gap-24">
           {/* Left Column - Contact Info */}
-          <div>
-            <div className="space-y-12">
+          <div className="order-2 lg:order-1">
+            <div className="space-y-8 md:space-y-12">
               <Reveal delay={0.3}>
-                <div className="flex items-start gap-4">
-                  <Mail className="text-black mt-1" size={18} />
+                <div className="flex items-start gap-5 group">
+                  <div className="w-10 h-10 flex items-center justify-center border border-black/5 group-hover:border-black/10 transition-colors">
+                    <Mail className="text-black" size={18} />
+                  </div>
                   <div>
-                    <span className="font-mono text-gray-text text-xs uppercase tracking-wider block mb-2">
-                      Email
+                    <span className="font-mono text-gray-text text-[10px] md:text-xs uppercase tracking-[0.2em] block mb-2">
+                      Napisz do nas
                     </span>
-                    <a href="mailto:biuro@drukmajster3d.pl" className="font-sans text-black text-xl hover:text-gray-600 transition-colors">
+                    <a href="mailto:biuro@drukmajster3d.pl" className="font-sans text-black text-lg md:text-xl hover:text-gray-600 transition-colors">
                       biuro@drukmajster3d.pl
                     </a>
                   </div>
@@ -121,13 +123,15 @@ export function ContactSection() {
               </Reveal>
 
               <Reveal delay={0.4}>
-                <div className="flex items-start gap-4">
-                  <Phone className="text-black mt-1" size={18} />
+                <div className="flex items-start gap-5 group">
+                  <div className="w-10 h-10 flex items-center justify-center border border-black/5 group-hover:border-black/10 transition-colors">
+                    <Phone className="text-black" size={18} />
+                  </div>
                   <div>
-                    <span className="font-mono text-gray-text text-xs uppercase tracking-wider block mb-2">
-                      Telefon
+                    <span className="font-mono text-gray-text text-[10px] md:text-xs uppercase tracking-[0.2em] block mb-2">
+                      Zadzwoń
                     </span>
-                    <a href="tel:+48500600700" className="font-sans text-black text-xl hover:text-gray-600 transition-colors">
+                    <a href="tel:+48500600700" className="font-sans text-black text-lg md:text-xl hover:text-gray-600 transition-colors">
                       +48 500 600 700
                     </a>
                   </div>
@@ -135,14 +139,17 @@ export function ContactSection() {
               </Reveal>
 
               <Reveal delay={0.5}>
-                <div className="flex items-start gap-4">
-                  <MapPin className="text-black mt-1" size={18} />
+                <div className="flex items-start gap-5 group">
+                  <div className="w-10 h-10 flex items-center justify-center border border-black/5 group-hover:border-black/10 transition-colors">
+                    <MapPin className="text-black" size={18} />
+                  </div>
                   <div>
-                    <span className="font-mono text-gray-text text-xs uppercase tracking-wider block mb-2">
+                    <span className="font-mono text-gray-text text-[10px] md:text-xs uppercase tracking-[0.2em] block mb-2">
                       Lokalizacja
                     </span>
-                    <p className="font-sans text-black text-xl">
-                      Poznań, Polska
+                    <p className="font-sans text-black text-lg md:text-xl leading-snug">
+                      ul. Przemysłowa 12<br />
+                      61-000 Poznań
                     </p>
                   </div>
                 </div>
@@ -151,8 +158,8 @@ export function ContactSection() {
           </div>
 
           {/* Right Column - Form */}
-          <Reveal delay={0.4} width="100%">
-            <form ref={formRef} onSubmit={handleSubmit} noValidate className="space-y-12">
+          <div className="order-1 lg:order-2">
+            <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
               <div className="group">
                 <label htmlFor="email" className="font-mono text-gray-text text-xs uppercase tracking-wider block mb-2 group-focus-within:text-black transition-colors">
                   Email *
@@ -208,7 +215,7 @@ export function ContactSection() {
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
               </motion.button>
             </form>
-          </Reveal>
+          </div>
         </div>
       </div>
     </section>
