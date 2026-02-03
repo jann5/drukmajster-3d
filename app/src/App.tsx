@@ -99,6 +99,7 @@ export default function App() {
 
   return (
     <div className="relative bg-white">
+      <div className="grain-overlay" aria-hidden="true" />
       <GalleryOverlay isOpen={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} />
 
       {/* Scroll Progress Bar */}

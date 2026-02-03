@@ -158,7 +158,7 @@ export function ContactSection() {
           </div>
 
           {/* Right Column - Form */}
-          <div className="order-1 lg:order-2">
+          <div className="order-1 lg:order-2 relative">
             <form ref={formRef} onSubmit={handleSubmit} className="space-y-8 md:space-y-10">
               <div className="group">
                 <label htmlFor="email" className="font-mono text-gray-text text-xs uppercase tracking-wider block mb-2 group-focus-within:text-black transition-colors">
@@ -211,10 +211,60 @@ export function ContactSection() {
                 whileHover={{ x: 10 }}
                 className="btn-underline relative font-sans font-bold text-black text-lg py-4 px-0 mt-8 flex items-center gap-4 transition-all"
               >
-                {formState === 'loading' ? 'Wysyłanie...' : formState === 'success' ? 'Wysłano pomyślnie ✓' : 'Wyślij zapytanie'}
+                {formState === 'loading' ? 'Wysyłanie...' : 'Wyślij zapytanie'}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
               </motion.button>
             </form>
+
+            <AnimatePresence>
+              {formState === 'success' && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="absolute inset-0 bg-white flex flex-col items-center justify-center text-center z-10"
+                >
+                  <motion.div
+                    initial={{ scale: 0.5, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ type: 'spring', damping: 20, stiffness: 200 }}
+                    className="w-20 h-20 bg-black rounded-full flex items-center justify-center mb-6"
+                  >
+                    <motion.svg
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      className="w-10 h-10 text-white"
+                      initial={{ pathLength: 0 }}
+                      animate={{ pathLength: 1 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                    >
+                      <motion.path
+                        d="M5 13l4 4L19 7"
+                        stroke="currentColor"
+                        strokeWidth="3"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                      />
+                    </motion.svg>
+                  </motion.div>
+                  <Reveal>
+                    <h3 className="font-sans font-bold text-black text-2xl mb-2">Transmisja pomyślna</h3>
+                  </Reveal>
+                  <Reveal delay={0.1}>
+                    <p className="font-sans text-gray-text">Twoja wiadomość jest w drodze do DrukMajstra.</p>
+                  </Reveal>
+                  <motion.button
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    onClick={() => setFormState('idle')}
+                    className="mt-8 font-mono text-[10px] uppercase tracking-widest text-gray-400 hover:text-black transition-colors"
+                  >
+                    WYŚLIJ KOLEJNĄ
+                  </motion.button>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </div>
