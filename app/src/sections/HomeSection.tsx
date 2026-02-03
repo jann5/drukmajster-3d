@@ -80,7 +80,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
                 Zapytaj o cenę
               </a>
               <a
-                href="#specs"
+                href="#usecases"
                 className="btn-underline font-sans text-gray-text text-sm md:text-base py-2 hover:text-black transition-colors"
               >
                 Przykłady zastosowań

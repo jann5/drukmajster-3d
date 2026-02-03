@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import logo from '../assets/logo.png';
 
 interface SidebarProps {
   activeSection: number;
@@ -6,7 +7,7 @@ interface SidebarProps {
   onOpenGallery?: () => void;
 }
 
-const sections = ['Home', 'O technologii', 'Parametry', 'Korzyści', 'Zastosowania', 'Kontakt'];
+const sections = ['Home', 'O technologii', 'Przykłady zastosowań', 'Korzyści', 'Kontakt'];
 
 export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarProps) {
   return (
@@ -18,10 +19,10 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="font-sans font-bold text-black text-lg tracking-tight cursor-pointer"
+          className="w-14 h-14 cursor-pointer mb-10"
           onClick={() => onNavigate(0)}
         >
-          DM
+          <img src={logo} alt="Logo" className="w-full h-full object-contain filter grayscale brightness-0 hover:grayscale-0 hover:brightness-100 transition-all duration-300" />
         </motion.div>
 
         {/* Vertical Navigation */}
@@ -78,10 +79,10 @@ export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarPro
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 0.2, duration: 0.5 }}
-          className="font-sans font-bold text-black text-xl tracking-tight cursor-pointer"
+          className="w-12 h-12 cursor-pointer"
           onClick={() => onNavigate(0)}
         >
-          DM
+          <img src={logo} alt="Logo" className="w-full h-full object-contain brightness-0" />
         </motion.div>
 
         <nav className="flex items-center gap-3">

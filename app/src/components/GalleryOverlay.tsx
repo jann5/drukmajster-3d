@@ -12,21 +12,21 @@ interface Project {
     title: string;
     category: string;
     image: string;
-    size: string;
 }
 
 const DEFAULT_PROJECTS: Project[] = [
-    { id: 1, title: 'Komponent Lotniczy', category: 'Aerospace', image: '/gallery_print_1.png', size: 'large' },
-    { id: 2, title: 'Prototyp Automotive', category: 'Automotive', image: '/gallery_print_2.png', size: 'small' },
-    { id: 3, title: 'Instrumentarium Medyczne', category: 'Medycyna', image: '/gallery_print_3.png', size: 'medium' },
-    { id: 4, title: 'Uchwyt Robota', category: 'Przemysł', image: '/gallery_print_1.png', size: 'medium' },
-    { id: 5, title: 'Obudowa Elektroniki', category: 'Prototyping', image: '/gallery_print_3.png', size: 'small' },
-    { id: 6, title: 'Model Architektoniczny', category: 'Architektura', image: '/gallery_print_2.png', size: 'large' },
+    { id: 1, title: 'Komponent Lotniczy', category: 'Aerospace', image: '/gallery_print_1.png' },
+    { id: 2, title: 'Prototyp Automotive', category: 'Automotive', image: '/gallery_print_2.png' },
+    { id: 3, title: 'Instrumentarium Medyczne', category: 'Medycyna', image: '/gallery_print_3.png' },
+    { id: 4, title: 'Uchwyt Chwytaka PR', category: 'Robotyka', image: '/gallery_print_1.png' },
+    { id: 5, title: 'Obudowa Prototypowa', category: 'Inżynieria', image: '/gallery_print_2.png' },
+    { id: 6, title: 'Model Funkcjonalny', category: 'R&D', image: '/gallery_print_3.png' },
 ];
 
 export function GalleryOverlay({ isOpen, onClose }: GalleryOverlayProps) {
     const [projects, setProjects] = useState<Project[]>(DEFAULT_PROJECTS);
     const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+    const [zoom, setZoom] = useState(1);
 
     // Populate projects from localStorage on open
     useEffect(() => {
@@ -37,6 +37,42 @@ export function GalleryOverlay({ isOpen, onClose }: GalleryOverlayProps) {
             }
         }
     }, [isOpen]);
+
+    // Zoom Logic
+    useEffect(() => {
+        if (!selectedProject) {
+            setZoom(1);
+            return;
+        }
+
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.ctrlKey || e.metaKey) {
+                if (e.key === 'ArrowUp' || e.key === '+') {
+                    e.preventDefault();
+                    setZoom(prev => Math.min(prev + 0.25, 4));
+                } else if (e.key === 'ArrowDown' || e.key === '-') {
+                    e.preventDefault();
+                    setZoom(prev => Math.max(prev - 0.25, 0.5));
+                }
+            }
+        };
+
+        const handleWheel = (e: WheelEvent) => {
+            if (e.ctrlKey || e.metaKey) {
+                e.preventDefault();
+                const delta = e.deltaY > 0 ? -0.1 : 0.1;
+                setZoom(prev => Math.min(Math.max(prev + delta, 0.5), 4));
+            }
+        };
+
+        window.addEventListener('keydown', handleKeyDown);
+        window.addEventListener('wheel', handleWheel, { passive: false });
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('wheel', handleWheel);
+        };
+    }, [selectedProject]);
 
     // Lock body scroll when gallery or lightbox is open
     useEffect(() => {
@@ -107,33 +143,36 @@ export function GalleryOverlay({ isOpen, onClose }: GalleryOverlayProps) {
                                     </p>
                                 </Reveal>
 
-                                {/* Masonry Grid Simulation using CSS Grid */}
-                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                {/* Masonry Grid using CSS Columns */}
+                                <div className="columns-1 md:columns-2 lg:columns-3 gap-8 space-y-8">
                                     {projects.map((project, index) => (
-                                        <Reveal key={project.id} delay={0.1 + index * 0.05} width="100%">
-                                            <div
-                                                onClick={() => setSelectedProject(project)}
-                                                className={`group relative overflow-hidden bg-gray-100 cursor-zoom-in ${project.size === 'large' ? 'aspect-[4/5]' :
-                                                    project.size === 'small' ? 'aspect-square' : 'aspect-[4/3]'
-                                                    }`}
-                                            >
-                                                <img
-                                                    src={project.image}
-                                                    alt={`Realizacja druku 3D: ${project.title} - kategoria ${project.category}`}
-                                                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                                                />
+                                        <div key={project.id} className="break-inside-avoid mb-8">
+                                            <Reveal delay={0.1 + index * 0.05} width="100%">
+                                                <div
+                                                    onClick={() => setSelectedProject(project)}
+                                                    className="group relative overflow-hidden bg-gray-100 cursor-zoom-in border border-black/5"
+                                                >
+                                                    <img
+                                                        src={project.image}
+                                                        alt={`Realizacja druku 3D: ${project.title} - kategoria ${project.category}`}
+                                                        className="w-full h-auto transition-transform duration-700 ease-out group-hover:scale-110"
+                                                    />
 
-                                                {/* Overlay Info */}
-                                                <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                                                    <span className="font-mono text-white/80 text-xs uppercase tracking-wider mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-75">
-                                                        {project.category}
-                                                    </span>
-                                                    <h3 className="font-sans font-bold text-white text-xl transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100">
-                                                        {project.title}
-                                                    </h3>
+                                                    {/* Better Overlay Info */}
+                                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex flex-col justify-end p-8">
+                                                        <span className="font-mono text-white/80 text-[10px] uppercase tracking-[0.2em] mb-2 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                                                            {project.category}
+                                                        </span>
+                                                        <h3 className="font-sans font-bold text-white text-lg transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 delay-75">
+                                                            {project.title}
+                                                        </h3>
+                                                    </div>
+
+                                                    {/* Subtle Border Hover */}
+                                                    <div className="absolute inset-0 border-0 group-hover:border-[16px] border-white/10 transition-all duration-700 pointer-events-none" />
                                                 </div>
-                                            </div>
-                                        </Reveal>
+                                            </Reveal>
+                                        </div>
                                     ))}
                                 </div>
                             </div>
@@ -149,13 +188,20 @@ export function GalleryOverlay({ isOpen, onClose }: GalleryOverlayProps) {
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
-                        className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-12 bg-black/95 backdrop-blur-md"
+                        className="fixed inset-0 z-[200] flex items-center justify-center p-4 md:p-12 bg-black/95 backdrop-blur-md overflow-hidden"
                         onClick={() => setSelectedProject(null)}
                     >
+                        {/* Zoom Indicator */}
+                        <div className="absolute top-8 left-1/2 -translate-x-1/2 z-[202] py-2 px-4 rounded-full bg-white/10 backdrop-blur-md border border-white/10">
+                            <span className="font-mono text-white text-[10px] uppercase tracking-widest">
+                                Zoom: {Math.round(zoom * 100)}% <span className="text-white/40 ml-2">(Ctrl + Scroll / Arrows)</span>
+                            </span>
+                        </div>
+
                         <motion.button
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all z-[201]"
+                            className="absolute top-8 right-8 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white text-white hover:text-black transition-all z-[203]"
                             onClick={() => setSelectedProject(null)}
                         >
                             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -168,33 +214,40 @@ export function GalleryOverlay({ isOpen, onClose }: GalleryOverlayProps) {
                             animate={{ scale: 1, opacity: 1 }}
                             exit={{ scale: 0.9, opacity: 0 }}
                             transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                            className="relative max-w-5xl w-full h-full flex flex-col items-center justify-center gap-8"
+                            className="relative w-full h-full flex flex-col items-center justify-center gap-8 overflow-hidden"
                             onClick={(e) => e.stopPropagation()}
                         >
-                            <img
+                            <motion.img
                                 src={selectedProject.image}
                                 alt={`Pełnowymiarowy detal druku 3D: ${selectedProject.title}`}
-                                className="max-h-[80vh] w-auto object-contain shadow-2xl"
+                                animate={{ scale: zoom }}
+                                transition={{ type: 'spring', damping: 30, stiffness: 300, mass: 0.5 }}
+                                className="max-h-[80vh] w-auto object-contain shadow-2xl origin-center cursor-grab active:cursor-grabbing"
+                                drag={zoom > 1}
+                                dragConstraints={{ left: -500, right: 500, top: -500, bottom: 500 }}
+                                dragElastic={0.1}
                             />
 
-                            <div className="text-center">
-                                <motion.span
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.2 }}
-                                    className="font-mono text-white/50 text-xs uppercase tracking-[0.2em] block mb-2"
-                                >
-                                    {selectedProject.category}
-                                </motion.span>
-                                <motion.h2
-                                    initial={{ opacity: 0, y: 10 }}
-                                    animate={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: 0.3 }}
-                                    className="font-sans font-bold text-white text-2xl md:text-3xl tracking-tight"
-                                >
-                                    {selectedProject.title}
-                                </motion.h2>
-                            </div>
+                            {zoom === 1 && (
+                                <div className="text-center">
+                                    <motion.span
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.2 }}
+                                        className="font-mono text-white/50 text-xs uppercase tracking-[0.2em] block mb-2"
+                                    >
+                                        {selectedProject.category}
+                                    </motion.span>
+                                    <motion.h2
+                                        initial={{ opacity: 0, y: 10 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ delay: 0.3 }}
+                                        className="font-sans font-bold text-white text-2xl md:text-3xl tracking-tight"
+                                    >
+                                        {selectedProject.title}
+                                    </motion.h2>
+                                </div>
+                            )}
                         </motion.div>
                     </motion.div>
                 )}

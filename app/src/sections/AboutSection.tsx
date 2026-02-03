@@ -9,7 +9,7 @@ const features = [
   },
   {
     title: 'Powtarzalność',
-    description: 'Automatyczne poziomowanie i zamknięta komora gwarantują identyczne wyniki w każdej serii.'
+    description: 'Automatyczne poziomowanie i zamknięta komora gwarantują identyczne wyniki v każdej serii.'
   },
   {
     title: 'Wszechstronność',
@@ -25,7 +25,7 @@ export function AboutSection() {
   return (
     <section
       id="about"
-      className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-32"
+      className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-32 bg-white"
     >
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}

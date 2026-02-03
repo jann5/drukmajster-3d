@@ -4,7 +4,6 @@ import { Sidebar } from './components/Sidebar';
 import { Footer } from './components/Footer';
 import { HomeSection } from './sections/HomeSection';
 import { AboutSection } from './sections/AboutSection';
-import { SpecsSection } from './sections/SpecsSection';
 import { BenefitsSection } from './sections/BenefitsSection';
 import { UseCasesSection } from './sections/UseCasesSection';
 import { ContactSection } from './sections/ContactSection';
@@ -25,7 +24,7 @@ export default function App() {
 
   const scrollToSection = (index: number) => {
     setActiveSection(index); // Immediate update
-    const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
+    const sectionIds = ['home', 'about', 'usecases', 'benefits', 'contact'];
     const element = document.getElementById(sectionIds[index]);
     if (element) {
       const lenis = (window as any).lenis;
@@ -38,12 +37,28 @@ export default function App() {
   };
 
   useEffect(() => {
-    // Listen for URL changes (simple way without a router lib)
     const handleLocationChange = () => {
       setIsAdmin(window.location.pathname === '/admin');
     };
     window.addEventListener('popstate', handleLocationChange);
+    handleLocationChange();
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
 
+  useEffect(() => {
+    const syncGalleryState = () => {
+      setIsGalleryOpen(window.location.hash === '#realizacje');
+    };
+    window.addEventListener('hashchange', syncGalleryState);
+    window.addEventListener('popstate', syncGalleryState);
+    syncGalleryState();
+    return () => {
+      window.removeEventListener('hashchange', syncGalleryState);
+      window.removeEventListener('popstate', syncGalleryState);
+    };
+  }, []);
+
+  useEffect(() => {
     if (isAdmin) {
       document.body.style.overflow = 'auto';
       return;
@@ -68,21 +83,21 @@ export default function App() {
 
     const observerOptions = {
       root: null,
-      rootMargin: '-30% 0px -30% 0px',
-      threshold: 0
+      rootMargin: '-20% 0px -20% 0px',
+      threshold: 0.1
     };
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
+          const sectionIds = ['home', 'about', 'usecases', 'benefits', 'contact'];
           const index = sectionIds.indexOf(entry.target.id);
           if (index !== -1) setActiveSection(index);
         }
       });
     }, observerOptions);
 
-    const sectionIds = ['home', 'about', 'specs', 'benefits', 'usecases', 'contact'];
+    const sectionIds = ['home', 'about', 'usecases', 'benefits', 'contact'];
     sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
@@ -90,7 +105,6 @@ export default function App() {
 
     return () => {
       observer.disconnect();
-      window.removeEventListener('popstate', handleLocationChange);
     };
   }, [isAdmin]);
 
@@ -101,7 +115,16 @@ export default function App() {
   return (
     <div className="relative bg-white">
       <div className="grain-overlay" aria-hidden="true" />
-      <GalleryOverlay isOpen={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} />
+      <GalleryOverlay
+        isOpen={isGalleryOpen}
+        onClose={() => {
+          if (window.location.hash === '#realizacje') {
+            window.history.back();
+          } else {
+            setIsGalleryOpen(false);
+          }
+        }}
+      />
 
       {/* Scroll Progress Bar */}
       <motion.div
@@ -112,16 +135,21 @@ export default function App() {
       <Sidebar
         activeSection={activeSection}
         onNavigate={scrollToSection}
-        onOpenGallery={() => setIsGalleryOpen(true)}
+        onOpenGallery={() => {
+          window.location.hash = 'realizacje';
+          setIsGalleryOpen(true);
+        }}
       />
 
       {/* Main Content Container - removed overflow-hidden to fix shadow clipping */}
       <main className="md:pl-20 w-full overflow-x-hidden">
-        <HomeSection onOpenGallery={() => setIsGalleryOpen(true)} />
+        <HomeSection onOpenGallery={() => {
+          window.location.hash = 'realizacje';
+          setIsGalleryOpen(true);
+        }} />
         <AboutSection />
-        <SpecsSection />
-        <BenefitsSection />
         <UseCasesSection />
+        <BenefitsSection />
         <ContactSection />
         <Footer />
       </main>
