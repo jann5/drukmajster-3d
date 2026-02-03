@@ -33,6 +33,7 @@ export function Footer() {
             <nav className="space-y-2">
               <a href="#home" className="font-sans text-black text-sm block hover:underline">Home</a>
               <a href="#benefits" className="font-sans text-black text-sm block hover:underline">Dlaczego my</a>
+              <a href="#gallery" className="font-sans text-black text-sm block hover:underline">Realizacje</a>
               <a href="#contact" className="font-sans text-black text-sm block hover:underline">Kontakt</a>
             </nav>
           </div>

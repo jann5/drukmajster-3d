@@ -208,7 +208,7 @@ export function ContactSection() {
         <div className="mb-24">
           <Reveal>
             <span className="font-mono text-gray-text text-xs uppercase tracking-widest block mb-4">
-              02 — Kontakt
+              03 — Kontakt
             </span>
           </Reveal>
 

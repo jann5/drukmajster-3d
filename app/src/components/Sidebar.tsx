@@ -5,13 +5,12 @@ interface SidebarProps {
   activeSection: number;
   onNavigate: (index: number) => void;
   onHomeClick?: () => void;
-  onOpenGallery?: () => void;
 }
 
-// 3 navigation dots: Home, Benefits (Dlaczego my), Contact
-const sections = ['Home', 'Dlaczego my', 'Kontakt'];
+// 4 navigation dots: Home, Benefits (Dlaczego my), Gallery (Realizacje), Contact (Kontakt)
+const sections = ['Home', 'Dlaczego my', 'Realizacje', 'Kontakt'];
 
-export function Sidebar({ activeSection, onNavigate, onHomeClick, onOpenGallery }: SidebarProps) {
+export function Sidebar({ activeSection, onNavigate, onHomeClick }: SidebarProps) {
   return (
     <>
       {/* Desktop Sidebar */}
@@ -27,7 +26,7 @@ export function Sidebar({ activeSection, onNavigate, onHomeClick, onOpenGallery 
           <img src={logo} alt="Logo" className="w-full h-full object-contain transition-transform duration-300 hover:scale-110" />
         </motion.div>
 
-        {/* Vertical Navigation - 3 dots */}
+        {/* Vertical Navigation - 4 dots */}
         <nav className="flex flex-col items-center gap-5">
           {sections.map((section, index) => (
             <button
@@ -46,22 +45,6 @@ export function Sidebar({ activeSection, onNavigate, onHomeClick, onOpenGallery 
               </span>
             </button>
           ))}
-
-          {/* Gallery Button - "+" */}
-          <button
-            onClick={onOpenGallery}
-            className="group relative flex items-center justify-center w-8 h-8 mt-4"
-            aria-label="Open Gallery"
-          >
-            <span className="relative text-xl text-gray-text group-hover:text-black transition-colors duration-300 transform group-hover:rotate-90">
-              +
-            </span>
-
-            {/* Tooltip */}
-            <span className="absolute left-full ml-4 px-2 py-1 bg-black text-white text-xs font-mono opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out whitespace-nowrap pointer-events-none">
-              Realizacje
-            </span>
-          </button>
         </nav>
 
         {/* Copyright */}

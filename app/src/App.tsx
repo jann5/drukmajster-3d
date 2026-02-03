@@ -4,15 +4,13 @@ import { Sidebar } from './components/Sidebar';
 import { Footer } from './components/Footer';
 import { HomeSection } from './sections/HomeSection';
 import { BenefitsSection } from './sections/BenefitsSection';
-// import { UseCasesSection } from './sections/UseCasesSection';
+import { GallerySection } from './sections/GallerySection';
 import { ContactSection } from './sections/ContactSection';
-import { GalleryOverlay } from './components/GalleryOverlay';
 import { AdminPage } from './sections/AdminPage';
 import Lenis from 'lenis';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState(0);
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(window.location.pathname === '/admin');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -21,10 +19,11 @@ export default function App() {
     restDelta: 0.001
   });
 
-  // 3 dots: home (index 0), benefits (index 1), contact (index 2)
+  // 4 dots: home (0), benefits (1), gallery (2), contact (3)
+  const sectionIds = ['home', 'benefits', 'gallery', 'contact'];
+
   const scrollToSection = (index: number) => {
     setActiveSection(index);
-    const sectionIds = ['home', 'benefits', 'contact'];
     const element = document.getElementById(sectionIds[index]);
     if (element) {
       const lenis = (window as any).lenis;
@@ -56,19 +55,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    const syncGalleryState = () => {
-      setIsGalleryOpen(window.location.hash === '#realizacje');
-    };
-    window.addEventListener('hashchange', syncGalleryState);
-    window.addEventListener('popstate', syncGalleryState);
-    syncGalleryState();
-    return () => {
-      window.removeEventListener('hashchange', syncGalleryState);
-      window.removeEventListener('popstate', syncGalleryState);
-    };
-  }, []);
-
-  useEffect(() => {
     if (isAdmin) {
       document.body.style.overflow = 'auto';
       return;
@@ -91,7 +77,7 @@ export default function App() {
     }
     requestAnimationFrame(raf);
 
-    // Observe 3 sections: home, benefits, contact
+    // Observe 4 sections: home, benefits, gallery, contact
     const observerOptions = {
       root: null,
       rootMargin: '-40% 0px -40% 0px',
@@ -101,15 +87,13 @@ export default function App() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          const sectionIds = ['home', 'benefits', 'contact'];
           const index = sectionIds.indexOf(entry.target.id);
           if (index !== -1) setActiveSection(index);
         }
       });
     }, observerOptions);
 
-    const observedIds = ['home', 'benefits', 'contact'];
-    observedIds.forEach((id) => {
+    sectionIds.forEach((id) => {
       const element = document.getElementById(id);
       if (element) observer.observe(element);
     });
@@ -126,16 +110,6 @@ export default function App() {
   return (
     <div className="relative bg-white">
       <div className="grain-overlay" aria-hidden="true" />
-      <GalleryOverlay
-        isOpen={isGalleryOpen}
-        onClose={() => {
-          if (window.location.hash === '#realizacje') {
-            window.history.back();
-          } else {
-            setIsGalleryOpen(false);
-          }
-        }}
-      />
 
       {/* Scroll Progress Bar */}
       <motion.div
@@ -147,17 +121,13 @@ export default function App() {
         activeSection={activeSection}
         onNavigate={scrollToSection}
         onHomeClick={handleHomeClick}
-        onOpenGallery={() => {
-          window.location.hash = 'realizacje';
-          setIsGalleryOpen(true);
-        }}
       />
 
       {/* Main Content */}
       <main className="md:pl-20 w-full overflow-x-hidden">
         <HomeSection />
-        {/* UseCasesSection commented out */}
         <BenefitsSection />
+        <GallerySection />
         <ContactSection />
         <Footer />
       </main>
