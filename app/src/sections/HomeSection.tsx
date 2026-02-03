@@ -23,7 +23,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
       ref={targetRef}
       className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-24 md:pt-0 relative overflow-hidden"
     >
-      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         {/* Text Content */}
         <motion.div style={{ opacity, y }} className="max-w-xl z-20">
           {/* Label */}
@@ -36,7 +36,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
           {/* Name */}
           <Reveal delay={0.2} y={40}>
             <div className="mb-4 md:mb-2">
-              <h1 className="font-sans font-bold text-black text-4xl sm:text-5xl md:text-7xl lg:text-8xl tracking-tight leading-[0.9]">
+              <h1 className="font-sans font-bold text-black text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.9]">
                 DrukMajster3D
               </h1>
             </div>
@@ -65,7 +65,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
 
           {/* Subtitle */}
           <Reveal delay={0.5}>
-            <p className="font-sans text-black text-base md:text-xl max-w-xl leading-relaxed mb-8">
+            <p className="font-sans text-black text-base md:text-lg lg:text-xl max-w-xl leading-relaxed mb-8">
               Twój partner w przemysłowym druku 3D. Precyzyjna produkcja z materiałów: PLA, ABS, ASA, TPU.
             </p>
           </Reveal>
@@ -98,19 +98,19 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
           <Reveal delay={0.7} width="100%">
             <div className="mt-16 md:mt-20 grid grid-cols-2 sm:grid-cols-3 gap-8 md:gap-10 max-w-2xl">
               <div>
-                <span className="font-mono text-black text-3xl md:text-5xl block tracking-tighter">
+                <span className="font-mono text-black text-3xl md:text-4xl lg:text-5xl block tracking-tighter">
                   3-5 dni
                 </span>
                 <span className="font-sans text-gray-text text-[9px] md:text-[10px] uppercase tracking-[0.2em] mt-3 block">Czas realizacji</span>
               </div>
               <div>
-                <span className="font-mono text-black text-3xl md:text-5xl block tracking-tighter">
+                <span className="font-mono text-black text-3xl md:text-4xl lg:text-5xl block tracking-tighter">
                   &gt;100 firm
                 </span>
                 <span className="font-sans text-gray-text text-[9px] md:text-[10px] uppercase tracking-[0.2em] mt-3 block">Drukowaliśmy dla</span>
               </div>
               <div className="col-span-2 sm:col-span-1">
-                <span className="font-mono text-black text-3xl md:text-5xl block tracking-tighter">
+                <span className="font-mono text-black text-3xl md:text-4xl lg:text-5xl block tracking-tighter">
                   cała Europa
                 </span>
                 <span className="font-sans text-gray-text text-[9px] md:text-[10px] uppercase tracking-[0.2em] mt-3 block">Obsługujemy</span>
@@ -126,7 +126,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
             initial={{ opacity: 0, scale: 1, x: 100 }}
             animate={{ opacity: 1, scale: 1.1, x: 0 }}
             transition={{ delay: 0.4, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[600px] sm:max-w-[700px] lg:max-w-[1200px] translate-x-[15%] sm:translate-x-[10%] md:translate-x-0 lg:translate-x-48 lg:-mb-56 relative"
+            className="w-full max-w-[500px] sm:max-w-[600px] md:max-w-[700px] lg:max-w-[1000px] xl:max-w-[1200px] translate-x-[15%] sm:translate-x-[10%] md:translate-x-0 lg:translate-x-24 xl:translate-x-48 lg:-mb-56 relative"
           >
             <img
               src={printerImage}
