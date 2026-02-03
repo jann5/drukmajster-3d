@@ -10,22 +10,22 @@ interface SpecItem {
 }
 
 const specs: SpecItem[] = [
-  { label: 'Model', value: 'Statysus F170' },
-  { label: 'Komora robocza', value: '254 × 254 × 254', unit: 'mm' },
-  { label: 'Temperatura głowicy', value: 'do 300', unit: '°C' },
-  { label: 'Temperatura stołu', value: 'do 110', unit: '°C' },
-  { label: 'Temperatura komory', value: 'do 70', unit: '°C' },
-  { label: 'Materiały', value: 'PLA, ABS, PETG, ASA, TPU, NYLON, PC' },
-  { label: 'Rozdzielczość warstwy', value: '0.05 - 0.4', unit: 'mm' },
-  { label: 'Średnica filamentu', value: '1.75', unit: 'mm' },
-  { label: 'Prędkość druku', value: 'do 150', unit: 'mm/s' },
-  { label: 'Prędkość przemieszczania', value: 'do 300', unit: 'mm/s' },
-  { label: 'System poziomowania', value: 'Automatyczny BL-Touch' },
-  { label: 'Ekstruder', value: 'Direct Drive' },
-  { label: 'Wyświetlacz', value: '5" kolorowy touchscreen' },
-  { label: 'Łączność', value: 'USB, SD, WiFi, Ethernet' },
-  { label: 'Wymiary urządzenia', value: '600 × 600 × 700', unit: 'mm' },
-  { label: 'Waga', value: '45', unit: 'kg' },
+  { label: 'Obszar roboczy', value: '254 x 254 x 254', unit: 'mm' },
+  { label: 'Materiały modelowe', value: 'ABS, PLA, ASA, ABS-CF10, TPU 92A' },
+  { label: 'Materiał podporowy', value: 'Rozpuszczalny QSR' },
+  { label: 'Wysokość warstwy', value: '0.127 | 0.178 | 0.254 | 0.330', unit: 'mm' },
+  { label: 'Dokładność części', value: '±0,200 mm lub ±0,002 mm/mm' },
+  { label: 'Liczba kieszeni', value: '2 (1 model / 1 support)' },
+  { label: 'Wymiary zewnętrzne', value: '1626 x 864 x 711', unit: 'mm' },
+  { label: 'Waga urządzenia', value: '227', unit: 'kg (z materiałami)' },
+  { label: 'Głośność pracy', value: 'Max. 46 dB (tryb jałowy: 35 dB)' },
+  { label: 'Oprogramowanie', value: 'GrabCAD Print / Print Pro' },
+  { label: 'Łączność', value: 'Ethernet / Wi-Fi (WPA2-PSK)' },
+  { label: 'System operacyjny', value: 'Windows 10/11 (min. 8GB RAM)' },
+  { label: 'Zasilanie', value: '100–132V/15A lub 200–240V/7A' },
+  { label: 'Temperatura pracy', value: '15 – 30', unit: '°C' },
+  { label: 'Certyfikat emisji', value: 'GREENGUARD (UL 2904)' },
+  { label: 'Zgodność prawna', value: 'CE, FCC, RoHS, REACH' },
 ];
 
 const useCases = [
