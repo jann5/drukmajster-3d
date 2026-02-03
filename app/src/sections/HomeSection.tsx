@@ -2,7 +2,6 @@ import { Reveal } from '../components/ui/Reveal';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import printerImage from '../assets/printer-f170.png';
-import logo from '../assets/logo.png';
 
 interface HomeSectionProps {
   onOpenGallery?: () => void;
@@ -35,18 +34,12 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
               </span>
             </Reveal>
 
-            {/* Logo + Title Row */}
+            {/* Title Row */}
             <Reveal delay={0.2} y={40}>
-              <div className="relative mb-4 inline-block">
+              <div className="mb-4">
                 <h1 className="font-sans font-bold text-transparent bg-clip-text bg-gradient-to-b from-black to-neutral-500 text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl tracking-tight leading-[0.9]">
                   DrukMajster3D
                 </h1>
-                {/* Logo - Positioned absolutely to the right of "3D" */}
-                <img
-                  src={logo}
-                  alt="DrukMajster3D Logo"
-                  className="absolute left-full ml-0 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-16 sm:h-16 md:w-20 md:h-20 lg:w-24 lg:h-24 xl:w-32 xl:h-32 object-contain"
-                />
               </div>
             </Reveal>
 
