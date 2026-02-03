@@ -80,7 +80,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
 
           {/* Buttons - Single Line */}
           <Reveal delay={0.6}>
-            <div className="flex items-center gap-x-8 whitespace-nowrap">
+            <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-8 gap-y-2 md:flex-nowrap md:whitespace-nowrap">
               <a
                 href="#contact"
                 className="btn-underline font-sans font-bold text-sm md:text-base py-2"
