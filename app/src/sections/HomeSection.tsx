@@ -14,8 +14,8 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
     offset: ["start start", "end start"]
   });
 
-  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
-  const y = useTransform(scrollYProgress, [0, 0.8], [0, -100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.4, 0.9], [1, 1, 0]);
+  const y = useTransform(scrollYProgress, [0, 0.4, 0.9], [0, 0, -100]);
 
   return (
     <section
@@ -126,12 +126,12 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
             initial={{ opacity: 0, scale: 1, x: 100 }}
             animate={{ opacity: 1, scale: 1.1, x: 0 }}
             transition={{ delay: 0.4, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[600px] sm:max-w-[700px] lg:max-w-[1200px] translate-x-[30%] sm:translate-x-[20%] md:translate-x-0 lg:translate-x-48 lg:-mb-56 relative"
+            className="w-full max-w-[600px] sm:max-w-[700px] lg:max-w-[1200px] translate-x-[15%] sm:translate-x-[10%] md:translate-x-0 lg:translate-x-48 lg:-mb-56 relative"
           >
             <img
               src={printerImage}
               alt="Stratasys F170 Printer"
-              className="w-full h-auto drop-shadow-[0_40px_100px_rgba(0,0,0,0.25)] mix-blend-multiply opacity-90 sm:opacity-100"
+              className="w-full h-auto drop-shadow-[0_40px_100px_rgba(0,0,0,0.25)]"
             />
             {/* Massive glow background */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-gradient-to-tr from-transparent via-gray-100 to-transparent rounded-full -z-10 blur-[100px] md:blur-[150px] opacity-60" />
