@@ -4,10 +4,9 @@ import { useRef } from 'react';
 import printerImage from '../assets/printer-f170.png';
 
 interface HomeSectionProps {
-  onOpenGallery?: () => void;
 }
 
-export function HomeSection({ onOpenGallery }: HomeSectionProps) {
+export function HomeSection({ }: HomeSectionProps) {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: targetRef,
@@ -86,12 +85,6 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
               >
                 Dlaczego my
               </a>
-              <button
-                onClick={onOpenGallery}
-                className="btn-underline font-sans text-sm md:text-base py-2"
-              >
-                Przykłady zastosowań
-              </button>
             </div>
           </Reveal>
 

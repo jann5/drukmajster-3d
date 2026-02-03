@@ -155,10 +155,7 @@ export default function App() {
 
       {/* Main Content */}
       <main className="md:pl-20 w-full overflow-x-hidden">
-        <HomeSection onOpenGallery={() => {
-          window.location.hash = 'realizacje';
-          setIsGalleryOpen(true);
-        }} />
+        <HomeSection />
         {/* UseCasesSection commented out */}
         <BenefitsSection />
         <ContactSection />

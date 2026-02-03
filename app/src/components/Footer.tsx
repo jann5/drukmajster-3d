@@ -32,10 +32,7 @@ export function Footer() {
             </span>
             <nav className="space-y-2">
               <a href="#home" className="font-sans text-black text-sm block hover:underline">Home</a>
-              <a href="#about" className="font-sans text-black text-sm block hover:underline">O technologii</a>
-              <a href="#specs" className="font-sans text-black text-sm block hover:underline">Parametry</a>
-              <a href="#benefits" className="font-sans text-black text-sm block hover:underline">Korzyści</a>
-              <a href="#usecases" className="font-sans text-black text-sm block hover:underline">Zastosowania</a>
+              <a href="#benefits" className="font-sans text-black text-sm block hover:underline">Dlaczego my</a>
               <a href="#contact" className="font-sans text-black text-sm block hover:underline">Kontakt</a>
             </nav>
           </div>
@@ -53,10 +50,10 @@ export function Footer() {
                 kontakt@grzegorznawrot.pl
               </a>
               <a
-                href="tel:+48123456789"
+                href="tel:+48509480456"
                 className="font-sans text-black text-sm block hover:underline"
               >
-                +48 123 456 789
+                +48 509 480 456
               </a>
             </div>
           </div>
