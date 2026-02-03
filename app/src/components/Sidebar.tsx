@@ -6,7 +6,7 @@ interface SidebarProps {
   onOpenGallery?: () => void;
 }
 
-const sections = ['Home', 'Parametry', 'Dlaczego my?', 'Zastosowania', 'Zapytaj o cenę'];
+const sections = ['Home', 'Przykłady zastosowań', 'Dlaczego my?', 'Technologia', 'Zapytaj o cenę'];
 
 export function Sidebar({ activeSection, onNavigate, onOpenGallery }: SidebarProps) {
   return (

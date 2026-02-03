@@ -1,5 +1,7 @@
 import { Reveal } from '../components/ui/Reveal';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { ChevronDown } from 'lucide-react';
 
 interface SpecItem {
   label: string;
@@ -26,27 +28,58 @@ const specs: SpecItem[] = [
   { label: 'Waga', value: '45', unit: 'kg' },
 ];
 
+const useCases = [
+  {
+    industry: 'Automotive',
+    title: 'Przemysł motoryzacyjny',
+    applications: [
+      'Prototypy elementów wnętrza',
+      'Przyrządy montażowe',
+      'Części zamienne custom'
+    ]
+  },
+  {
+    industry: 'Manufacturing',
+    title: 'Produkcja przemysłowa',
+    applications: [
+      'Narzędzia produkcyjne',
+      'Formy i wkładki',
+      'Elementy automatyzacji'
+    ]
+  },
+  {
+    industry: 'Medical',
+    title: 'Medycyna',
+    applications: [
+      'Modele anatomiczne',
+      'Przyrządy chirurgiczne',
+      'Protezy i ortezy custom'
+    ]
+  }
+];
+
 export function SpecsSection() {
+  const [showSpecs, setShowSpecs] = useState(false);
   const leftColumn = specs.filter((_, i) => i % 2 === 0);
   const rightColumn = specs.filter((_, i) => i % 2 !== 0);
 
   return (
     <section
       id="specs"
-      className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-32" // Increased padding
+      className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 py-32 bg-white"
     >
       <div className="max-w-7xl mx-auto w-full">
         {/* Section Header */}
         <div className="mb-24">
           <Reveal>
             <span className="font-mono text-gray-text text-xs uppercase tracking-widest block mb-4">
-              02 — Parametry
+              02 — Przykłady zastosowań
             </span>
           </Reveal>
 
           <Reveal delay={0.1}>
             <h2 className="font-sans font-bold text-black text-3xl md:text-5xl mb-8">
-              Specyfikacja techniczna
+              Zastosowania przemysłowe
             </h2>
           </Reveal>
 
@@ -59,60 +92,91 @@ export function SpecsSection() {
           />
         </div>
 
-        {/* Two Column Specs */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-0">
-          {/* Left Column */}
-          <div>
-            {leftColumn.map((spec, index) => (
-              <Reveal key={spec.label} delay={0.1 + index * 0.05} width="100%">
-                <div className="micro-border py-6 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
-                  <span className="font-mono text-gray-text text-xs uppercase tracking-wider group-hover:text-black transition-colors">
-                    {spec.label}
-                  </span>
-                  <span className="font-sans text-black text-base text-right font-medium">
-                    {spec.value}
-                    {spec.unit && <span className="font-mono text-gray-text text-sm ml-1">{spec.unit}</span>}
-                  </span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-
-          {/* Right Column */}
-          <div>
-            {rightColumn.map((spec, index) => (
-              <Reveal key={spec.label} delay={0.2 + index * 0.05} width="100%">
-                <div className="micro-border py-6 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
-                  <span className="font-mono text-gray-text text-xs uppercase tracking-wider group-hover:text-black transition-colors">
-                    {spec.label}
-                  </span>
-                  <span className="font-sans text-black text-base text-right font-medium">
-                    {spec.value}
-                    {spec.unit && <span className="font-mono text-gray-text text-sm ml-1">{spec.unit}</span>}
-                  </span>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+        {/* Applications Grid */}
+        <div className="grid md:grid-cols-3 gap-12 mb-32">
+          {useCases.map((useCase, index) => (
+            <Reveal key={useCase.industry} delay={0.2 + index * 0.1} width="100%">
+              <div className="space-y-6">
+                <span className="font-mono text-gray-text text-[10px] uppercase tracking-[0.2em]">
+                  {useCase.industry}
+                </span>
+                <h3 className="font-sans font-bold text-black text-2xl">
+                  {useCase.title}
+                </h3>
+                <ul className="space-y-3">
+                  {useCase.applications.map((app, appIndex) => (
+                    <li key={appIndex} className="font-sans text-gray-text text-sm flex items-start gap-3">
+                      <span className="text-black opacity-30 mt-1">—</span>
+                      <span>{app}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </Reveal>
+          ))}
         </div>
 
-        {/* Download CTA */}
-        <Reveal delay={0.4} className="mt-16">
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-3 font-sans text-black text-sm group"
+        {/* Collapsible Specs */}
+        <div className="border-t border-gray-100 pt-12">
+          <button
+            onClick={() => setShowSpecs(!showSpecs)}
+            className="flex items-center gap-4 group"
           >
-            <span className="btn-underline py-1 font-medium">Pełna specyfikacja techniczna na żądanie</span>
-            <svg
-              className="w-4 h-4 transform group-hover:translate-x-1 transition-transform"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+            <span className="font-sans font-bold text-black text-sm uppercase tracking-widest">
+              Parametry techniczne (rozwiń)
+            </span>
+            <motion.div
+              animate={{ rotate: showSpecs ? 180 : 0 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        </Reveal>
+              <ChevronDown size={18} className="text-black" />
+            </motion.div>
+          </button>
+
+          <AnimatePresence>
+            {showSpecs && (
+              <motion.div
+                initial={{ height: 0, opacity: 0 }}
+                animate={{ height: 'auto', opacity: 1 }}
+                exit={{ height: 0, opacity: 0 }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="overflow-hidden"
+              >
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-24 gap-y-0 pt-16">
+                  {/* Left Column */}
+                  <div>
+                    {leftColumn.map((spec) => (
+                      <div key={spec.label} className="micro-border py-6 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
+                        <span className="font-mono text-gray-text text-[10px] uppercase tracking-wider group-hover:text-black transition-colors">
+                          {spec.label}
+                        </span>
+                        <span className="font-sans text-black text-base text-right font-medium">
+                          {spec.value}
+                          {spec.unit && <span className="font-mono text-gray-text text-xs ml-1">{spec.unit}</span>}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Right Column */}
+                  <div>
+                    {rightColumn.map((spec) => (
+                      <div key={spec.label} className="micro-border py-6 flex justify-between items-baseline group hover:bg-gray-50 transition-colors duration-300 px-2">
+                        <span className="font-mono text-gray-text text-[10px] uppercase tracking-wider group-hover:text-black transition-colors">
+                          {spec.label}
+                        </span>
+                        <span className="font-sans text-black text-base text-right font-medium">
+                          {spec.value}
+                          {spec.unit && <span className="font-mono text-gray-text text-xs ml-1">{spec.unit}</span>}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </div>
     </section>
   );

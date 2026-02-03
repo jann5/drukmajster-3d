@@ -42,11 +42,14 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
             </div>
           </Reveal>
 
-          {/* Printer Model */}
+          {/* Printer Model & Location */}
           <Reveal delay={0.3}>
-            <div className="mb-10">
-              <span className="font-mono text-gray-text text-lg md:text-xl uppercase tracking-tight">
+            <div className="mb-10 flex flex-col gap-1">
+              <span className="font-mono text-gray-text text-xs uppercase tracking-widest">
                 amerykańska technologia STRATASYS
+              </span>
+              <span className="font-sans text-gray-text text-xs uppercase tracking-widest">
+                Wielkopolska rzetelność
               </span>
             </div>
           </Reveal>
@@ -80,7 +83,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
                 href="#specs"
                 className="btn-underline font-sans text-gray-text text-base py-2 hover:text-black transition-colors"
               >
-                Parametry
+                Przykłady zastosowań
               </a>
               <button
                 onClick={onOpenGallery}
@@ -123,7 +126,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
             initial={{ opacity: 0, scale: 1, x: 150 }}
             animate={{ opacity: 1, scale: 1.1, x: 0 }}
             transition={{ delay: 0.4, duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            className="w-full max-w-[700px] lg:max-w-[1200px] lg:translate-x-48 lg:-mb-56"
+            className="w-full max-w-[700px] lg:max-w-[1200px] translate-x-1/2 md:translate-x-0 lg:translate-x-48 lg:-mb-56"
           >
             <img
               src={printerImage}
