@@ -8,11 +8,13 @@ import { BenefitsSection } from './sections/BenefitsSection';
 import { UseCasesSection } from './sections/UseCasesSection';
 import { ContactSection } from './sections/ContactSection';
 import { GalleryOverlay } from './components/GalleryOverlay';
+import { AdminPage } from './sections/AdminPage';
 import Lenis from 'lenis';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState(0);
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(window.location.pathname === '/admin');
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
     stiffness: 100,
@@ -25,7 +27,6 @@ export default function App() {
     const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
     const element = document.getElementById(sectionIds[index]);
     if (element) {
-      // Use Lenis for scrolling if available, or fallback
       const lenis = (window as any).lenis;
       if (lenis) {
         lenis.scrollTo(element);
@@ -36,6 +37,17 @@ export default function App() {
   };
 
   useEffect(() => {
+    // Listen for URL changes (simple way without a router lib)
+    const handleLocationChange = () => {
+      setIsAdmin(window.location.pathname === '/admin');
+    };
+    window.addEventListener('popstate', handleLocationChange);
+
+    if (isAdmin) {
+      document.body.style.overflow = 'auto';
+      return;
+    }
+
     // Initialize Lenis
     const lenis = new Lenis({
       duration: 1.2,
@@ -51,13 +63,11 @@ export default function App() {
       lenis.raf(time);
       requestAnimationFrame(raf);
     }
-
     requestAnimationFrame(raf);
 
-    // Intersection Observer Logic
     const observerOptions = {
       root: null,
-      rootMargin: '-30% 0px -30% 0px', // More forgiving middle area
+      rootMargin: '-30% 0px -30% 0px',
       threshold: 0
     };
 
@@ -66,10 +76,7 @@ export default function App() {
         if (entry.isIntersecting) {
           const sectionIds = ['home', 'specs', 'benefits', 'usecases', 'contact'];
           const index = sectionIds.indexOf(entry.target.id);
-          if (index !== -1) {
-            // Only update if we're not currently scrolling via click (optional refinement, but simple set is usually fine)
-            setActiveSection(index);
-          }
+          if (index !== -1) setActiveSection(index);
         }
       });
     }, observerOptions);
@@ -80,11 +87,18 @@ export default function App() {
       if (element) observer.observe(element);
     });
 
-    return () => observer.disconnect();
-  }, []);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, [isAdmin]);
+
+  if (isAdmin) {
+    return <AdminPage />;
+  }
 
   return (
-    <div className="relative">
+    <div className="relative bg-white">
       <GalleryOverlay isOpen={isGalleryOpen} onClose={() => setIsGalleryOpen(false)} />
 
       {/* Scroll Progress Bar */}
@@ -99,8 +113,8 @@ export default function App() {
         onOpenGallery={() => setIsGalleryOpen(true)}
       />
 
-      {/* Main Content Container */}
-      <main className="md:pl-20 w-full overflow-hidden">
+      {/* Main Content Container - removed overflow-hidden to fix shadow clipping */}
+      <main className="md:pl-20 w-full overflow-x-hidden">
         <HomeSection onOpenGallery={() => setIsGalleryOpen(true)} />
         <SpecsSection />
         <BenefitsSection />
@@ -111,3 +125,4 @@ export default function App() {
     </div>
   );
 }
+

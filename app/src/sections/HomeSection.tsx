@@ -21,7 +21,7 @@ export function HomeSection({ onOpenGallery }: HomeSectionProps) {
     <section
       id="home"
       ref={targetRef}
-      className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-24 md:pt-0 relative overflow-hidden"
+      className="min-h-screen flex flex-col justify-center px-6 md:px-16 lg:px-24 pt-24 md:pt-0 relative bg-white"
     >
       <div className="max-w-7xl w-full mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
         {/* Text Content */}

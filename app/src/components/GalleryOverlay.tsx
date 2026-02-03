@@ -1,5 +1,5 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Reveal } from './ui/Reveal';
 
 interface GalleryOverlayProps {
@@ -7,17 +7,35 @@ interface GalleryOverlayProps {
     onClose: () => void;
 }
 
-// Placeholder data - normally this would come from props or an API
-const projects = [
+interface Project {
+    id: number;
+    title: string;
+    category: string;
+    image: string;
+    size: string;
+}
+
+const DEFAULT_PROJECTS: Project[] = [
     { id: 1, title: 'Komponent Lotniczy', category: 'Aerospace', image: '/gallery_print_1.png', size: 'large' },
     { id: 2, title: 'Prototyp Automotive', category: 'Automotive', image: '/gallery_print_2.png', size: 'small' },
     { id: 3, title: 'Instrumentarium Medyczne', category: 'Medycyna', image: '/gallery_print_3.png', size: 'medium' },
-    { id: 4, title: 'Uchwyt Robota', category: 'Przemysł', image: '/gallery_print_1.png', size: 'medium' }, // Reusing for demo
-    { id: 5, title: 'Obudowa Elektroniki', category: 'Prototyping', image: '/gallery_print_3.png', size: 'small' }, // Reusing for demo
-    { id: 6, title: 'Model Architektoniczny', category: 'Architektura', image: '/gallery_print_2.png', size: 'large' }, // Reusing for demo
+    { id: 4, title: 'Uchwyt Robota', category: 'Przemysł', image: '/gallery_print_1.png', size: 'medium' },
+    { id: 5, title: 'Obudowa Elektroniki', category: 'Prototyping', image: '/gallery_print_3.png', size: 'small' },
+    { id: 6, title: 'Model Architektoniczny', category: 'Architektura', image: '/gallery_print_2.png', size: 'large' },
 ];
 
 export function GalleryOverlay({ isOpen, onClose }: GalleryOverlayProps) {
+    const [projects, setProjects] = useState<Project[]>(DEFAULT_PROJECTS);
+
+    // Populate projects from localStorage on open
+    useEffect(() => {
+        if (isOpen) {
+            const saved = localStorage.getItem('drukmajster_gallery');
+            if (saved) {
+                setProjects(JSON.parse(saved));
+            }
+        }
+    }, [isOpen]);
 
     // Lock body scroll when gallery is open
     useEffect(() => {
