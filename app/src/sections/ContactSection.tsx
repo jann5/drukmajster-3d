@@ -2,6 +2,8 @@ import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Reveal } from '../components/ui/Reveal';
 import { Mail, Phone, MapPin, AlertCircle, Upload, X, FileText, Image } from 'lucide-react';
+import { useAction, useMutation } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 interface FormErrors {
   email?: string;
@@ -15,9 +17,6 @@ interface UploadedFile {
   preview?: string;
 }
 
-// WAŻNE: Zamień na swój klucz z https://web3forms.com/
-const WEB3FORMS_ACCESS_KEY = 'YOUR_ACCESS_KEY_HERE';
-
 export function ContactSection() {
   const [formState, setFormState] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errors, setErrors] = useState<FormErrors>({});
@@ -25,6 +24,10 @@ export function ContactSection() {
   const [errorMessage, setErrorMessage] = useState<string>('');
   const formRef = useRef<HTMLFormElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+
+  // Import Convex action
+  const sendEmail = useAction(api.emails.sendContactEmail);
+  const generateUploadUrl = useMutation(api.files.generateUploadUrl);
 
   // Obsługiwane formaty plików
   const acceptedFormats = '.stl,.obj,.step,.stp,.iges,.igs,.3mf,.gcode,.jpg,.jpeg,.png,.gif,.pdf';
@@ -131,53 +134,66 @@ export function ContactSection() {
     setErrorMessage('');
 
     try {
-      // Przygotuj FormData dla Web3Forms
-      const submitData = new FormData();
-      submitData.append('access_key', WEB3FORMS_ACCESS_KEY);
-      submitData.append('email', formData.get('email') as string);
-      submitData.append('subject', formData.get('subject') as string);
-      submitData.append('message', formData.get('message') as string);
-      submitData.append('from_name', 'DrukMajster3D Website');
+      // 1. Upload files if any
+      const storageIds: string[] = [];
 
-      // Dodaj pliki
-      uploadedFiles.forEach((uploadedFile, index) => {
-        submitData.append(`attachment_${index + 1}`, uploadedFile.file);
-      });
-
-      // Lista załączonych plików w wiadomości
       if (uploadedFiles.length > 0) {
-        const fileList = uploadedFiles.map((f) => f.file.name).join(', ');
-        submitData.append('files_info', `Załączone pliki: ${fileList}`);
+        // Upload files in parallel for speed
+        const uploadPromises = uploadedFiles.map(async (fileObj) => {
+          // Get a short-lived upload URL
+          const postUrl = await generateUploadUrl();
+
+          // POST the file to the URL
+          const result = await fetch(postUrl, {
+            method: "POST",
+            headers: { "Content-Type": fileObj.file.type },
+            body: fileObj.file,
+          });
+
+          if (!result.ok) {
+            throw new Error(`Upload failed: ${result.statusText}`);
+          }
+
+          const { storageId } = await result.json();
+          return storageId;
+        });
+
+        const ids = await Promise.all(uploadPromises);
+        storageIds.push(...ids);
       }
 
-      // Wyślij do Web3Forms
-      const response = await fetch('https://api.web3forms.com/submit', {
-        method: 'POST',
-        body: submitData,
+      // 2. Send email with storage IDs and metadata
+      await sendEmail({
+        email: formData.get('email') as string,
+        subject: formData.get('subject') as string,
+        message: formData.get('message') as string,
+        filesInfo: uploadedFiles.length > 0
+          ? `Załączone pliki: ${uploadedFiles.map((f) => f.file.name).join(', ')}`
+          : undefined,
+        attachments: storageIds.map((id, index) => ({
+          storageId: id,
+          name: uploadedFiles[index].file.name,
+          type: uploadedFiles[index].file.type,
+        })),
       });
 
-      const result = await response.json();
+      setFormState('success');
 
-      if (result.success) {
-        setFormState('success');
+      // Clear files
+      uploadedFiles.forEach((f) => {
+        if (f.preview) URL.revokeObjectURL(f.preview);
+      });
+      setUploadedFiles([]);
 
-        // Wyczyść pliki
-        uploadedFiles.forEach((f) => {
-          if (f.preview) URL.revokeObjectURL(f.preview);
-        });
-        setUploadedFiles([]);
-
-        setTimeout(() => {
-          setFormState('idle');
-          setErrors({});
-          formRef.current?.reset();
-        }, 5000);
-      } else {
-        throw new Error(result.message || 'Wystąpił błąd podczas wysyłania');
-      }
+      setTimeout(() => {
+        setFormState('idle');
+        setErrors({});
+        formRef.current?.reset();
+      }, 5000);
     } catch (error) {
+      console.error("Submission error:", error);
       setFormState('error');
-      setErrorMessage(error instanceof Error ? error.message : 'Wystąpił nieoczekiwany błąd');
+      setErrorMessage('Wystąpił błąd podczas wysyłania. Spróbuj ponownie.');
 
       setTimeout(() => {
         setFormState('idle');
@@ -429,7 +445,7 @@ export function ContactSection() {
                 whileHover={{ x: 10 }}
                 className="btn-underline relative font-sans font-bold text-lg py-4 px-0 mt-8 transition-all disabled:opacity-50"
               >
-                {formState === 'loading' ? 'Wysyłanie...' : 'Wyślij zapytanie'}
+                {formState === 'loading' ? 'Wysyłanie plików...' : 'Wyślij zapytanie'}
               </motion.button>
             </form>
 

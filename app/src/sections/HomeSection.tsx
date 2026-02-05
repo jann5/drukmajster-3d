@@ -66,18 +66,24 @@ export function HomeSection({ }: HomeSectionProps) {
           {/* Body Text */}
           <Reveal delay={0.5}>
             <p className="font-sans text-black text-base md:text-lg lg:text-xl max-w-xl leading-relaxed mb-8">
-              Twój partner w przemysłowym druku 3D. Precyzyjna produkcja z materiałów: PLA, ABS, ASA, TPU.
+              Twój partner w przemysłowym druku 3D. Prototypy, modele, oprzyrządowania, elementy konstrukcyjne oraz inne przedmioty drukowane tylko na certyfikowanym tworzywie ABS marki Stratasys w kolorze czarnym lub białym. Standard DrukMajster3D.
             </p>
           </Reveal>
 
-          {/* Buttons - Single Line */}
+          {/* Buttons - Three Buttons */}
           <Reveal delay={0.6}>
             <div className="flex flex-wrap items-center gap-x-4 sm:gap-x-8 gap-y-2 md:flex-nowrap md:whitespace-nowrap">
               <a
                 href="#contact"
                 className="btn-underline font-sans font-bold text-sm md:text-base py-2"
               >
-                Zapytaj o cenę
+                Wyceń swój projekt
+              </a>
+              <a
+                href="#gallery"
+                className="btn-underline font-sans text-sm md:text-base py-2"
+              >
+                Przykładowe realizacje
               </a>
               <a
                 href="#benefits"

@@ -8,6 +8,8 @@ import { GallerySection } from './sections/GallerySection';
 import { ContactSection } from './sections/ContactSection';
 import { AdminPage } from './sections/AdminPage';
 import Lenis from 'lenis';
+import { ConvexProvider } from "convex/react";
+import { convex } from "./lib/convexClient";
 
 export default function App() {
   const [activeSection, setActiveSection] = useState(0);
@@ -21,6 +23,43 @@ export default function App() {
 
   // 4 dots: home (0), benefits (1), gallery (2), contact (3)
   const sectionIds = ['home', 'benefits', 'gallery', 'contact'];
+
+  // Analytics Tracking
+  useEffect(() => {
+    const trackVisit = async () => {
+      try {
+        const convexUrl = import.meta.env.VITE_CONVEX_URL;
+        console.log("Analytics: Tracking visit...", { convexUrl });
+
+        if (!convexUrl) {
+          console.warn("Analytics: Missing VITE_CONVEX_URL");
+          return;
+        }
+
+        // Convert VITE_CONVEX_URL (e.g. https://deployment.convex.cloud) to SITE URL (https://deployment.convex.site)
+        // Site URL is required for httpRouter
+        const httpUrl = convexUrl
+          .replace("wss://", "https://")
+          .replace("ws://", "http://")
+          .replace(".convex.cloud", ".convex.site");
+
+        console.log("Analytics: Sending to", httpUrl);
+
+        const response = await fetch(`${httpUrl}/analytics/track`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ path: window.location.pathname }),
+        });
+
+        console.log("Analytics: Request sent", { status: response.status });
+      } catch (err) {
+        console.error("Analytics: Error", err);
+      }
+    };
+
+    // For debugging: track always (removed session check)
+    trackVisit();
+  }, []);
 
   const scrollToSection = (index: number) => {
     setActiveSection(index);
@@ -103,34 +142,36 @@ export default function App() {
     };
   }, [isAdmin]);
 
-  if (isAdmin) {
-    return <AdminPage />;
-  }
-
   return (
-    <div className="relative bg-white">
-      <div className="grain-overlay" aria-hidden="true" />
+    <ConvexProvider client={convex}>
+      {isAdmin ? (
+        <AdminPage />
+      ) : (
+        <div className="relative bg-white">
+          <div className="grain-overlay" aria-hidden="true" />
 
-      {/* Scroll Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-black origin-left z-[100]"
-        style={{ scaleX }}
-      />
+          {/* Scroll Progress Bar */}
+          <motion.div
+            className="fixed top-0 left-0 right-0 h-1 bg-black origin-left z-[100]"
+            style={{ scaleX }}
+          />
 
-      <Sidebar
-        activeSection={activeSection}
-        onNavigate={scrollToSection}
-        onHomeClick={handleHomeClick}
-      />
+          <Sidebar
+            activeSection={activeSection}
+            onNavigate={scrollToSection}
+            onHomeClick={handleHomeClick}
+          />
 
-      {/* Main Content */}
-      <main className="md:pl-20 w-full overflow-x-hidden">
-        <HomeSection />
-        <BenefitsSection />
-        <GallerySection />
-        <ContactSection />
-        <Footer />
-      </main>
-    </div>
+          {/* Main Content */}
+          <main className="md:pl-20 w-full overflow-x-hidden">
+            <HomeSection />
+            <BenefitsSection />
+            <GallerySection />
+            <ContactSection />
+            <Footer />
+          </main>
+        </div>
+      )}
+    </ConvexProvider>
   );
 }

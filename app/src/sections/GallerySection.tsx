@@ -1,37 +1,25 @@
-import { useEffect, useState } from 'react';
 import { Reveal } from '../components/ui/Reveal';
 import { FramerThumbnailCarousel } from '../components/ui/framer-thumbnail-carousel';
+import { useQuery } from "convex/react";
+import { api } from "../../convex/_generated/api";
 
 interface Project {
-    id: number;
+    _id: string; // Convex ID
     title: string;
     category: string;
     image: string;
 }
 
-const DEFAULT_PROJECTS: Project[] = [
-    { id: 1, title: 'Komponent Lotniczy', category: 'Aerospace', image: '/gallery_print_1.png' },
-    { id: 2, title: 'Prototyp Automotive', category: 'Automotive', image: '/gallery_print_2.png' },
-    { id: 3, title: 'Instrumentarium Medyczne', category: 'Medycyna', image: '/gallery_print_3.png' },
-    { id: 4, title: 'Uchwyt Chwytaka PR', category: 'Robotyka', image: '/gallery_print_1.png' },
-    { id: 5, title: 'Obudowa Prototypowa', category: 'Inżynieria', image: '/gallery_print_2.png' },
-    { id: 6, title: 'Model Funkcjonalny', category: 'R&D', image: '/gallery_print_3.png' },
-];
-
 export function GallerySection() {
-    const [projects, setProjects] = useState<Project[]>(DEFAULT_PROJECTS);
+    const convexProjects = useQuery(api.gallery.get);
 
-    // Load projects from localStorage (admin-managed)
-    useEffect(() => {
-        const saved = localStorage.getItem('drukmajster_gallery');
-        if (saved) {
-            setProjects(JSON.parse(saved));
-        }
-    }, []);
+    // Fallback or loading state handled implicitly by undefined check later if desired,
+    // or we can show a skeleton. For now default to empty array if loading.
+    const projects = convexProjects || [];
 
     // Convert projects to carousel format
-    const carouselItems = projects.map((p) => ({
-        id: p.id,
+    const carouselItems = projects.map((p: any) => ({
+        id: p._id,
         url: p.image,
         title: p.title,
     }));
