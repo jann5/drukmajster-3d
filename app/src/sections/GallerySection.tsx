@@ -3,12 +3,6 @@ import { FramerThumbnailCarousel } from '../components/ui/framer-thumbnail-carou
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
-interface Project {
-    _id: string; // Convex ID
-    title: string;
-    category: string;
-    image: string;
-}
 
 export function GallerySection() {
     const convexProjects = useQuery(api.gallery.get);

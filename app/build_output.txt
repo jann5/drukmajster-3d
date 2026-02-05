@@ -1,0 +1,9 @@
+
+> my-app@0.0.0 build
+> tsc -b && vite build
+
+src/sections/AdminPage.tsx(6,19): error TS6133: 'useDragControls' is declared but its value is never read.
+src/sections/AdminPage.tsx(21,12): error TS6133: 'login' is declared but its value is never read.
+src/sections/AdminPage.tsx(21,19): error TS6133: 'setLogin' is declared but its value is never read.
+src/sections/AdminPage.tsx(61,41): error TS6133: 'croppedArea' is declared but its value is never read.
+src/sections/GallerySection.tsx(6,11): error TS6196: 'Project' is declared but never used.

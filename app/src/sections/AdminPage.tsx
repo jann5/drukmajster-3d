@@ -3,7 +3,7 @@ import { Reveal } from '../components/ui/Reveal';
 import { Trash2, Plus, LogOut, Image as ImageIcon, Eye, EyeOff, Upload, GripVertical, Crop } from 'lucide-react';
 import { useQuery, useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
-import { Reorder, useDragControls } from "framer-motion";
+import { Reorder } from "framer-motion";
 import Cropper from 'react-easy-crop';
 import getCroppedImg from '../lib/cropImage';
 
@@ -18,7 +18,6 @@ interface Project {
 
 export function AdminPage() {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [error, setError] = useState('');
@@ -58,7 +57,7 @@ export function AdminPage() {
     const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);
     const [cropAspect, setCropAspect] = useState(4 / 3);
 
-    const onCropComplete = useCallback((croppedArea: any, croppedAreaPixels: any) => {
+    const onCropComplete = useCallback((_croppedArea: any, croppedAreaPixels: any) => {
         setCroppedAreaPixels(croppedAreaPixels);
     }, []);
 
