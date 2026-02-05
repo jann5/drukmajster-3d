@@ -98,16 +98,31 @@ export function AdminPage() {
         e.preventDefault();
         setError('');
 
+        console.log('=== LOGIN ATTEMPT ===');
+        console.log('Password entered:', password ? '***' : '(empty)');
+        console.log('verifyPassword mutation:', verifyPassword);
+
+        if (!password) {
+            setError('Proszę wprowadzić hasło');
+            return;
+        }
+
         try {
+            console.log('Calling verifyPassword mutation...');
             const isValid = await verifyPassword({ password });
+            console.log('verifyPassword result:', isValid);
+
             if (isValid) {
+                console.log('Login successful!');
                 setIsLoggedIn(true);
             } else {
+                console.log('Invalid password');
                 setError('Błędne hasło');
             }
         } catch (err) {
-            console.error(err);
-            setError('Błąd logowania');
+            console.error('Login error:', err);
+            console.error('Error details:', JSON.stringify(err, null, 2));
+            setError(`Błąd logowania: ${err instanceof Error ? err.message : 'Nieznany błąd'}`);
         }
     };
 

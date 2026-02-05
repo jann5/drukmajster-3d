@@ -1,6 +1,4 @@
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import { Lock } from 'lucide-react';
 import logo from '../assets/logo.png';
 
 interface SidebarProps {
@@ -49,31 +47,15 @@ export function Sidebar({ activeSection, onNavigate, onHomeClick }: SidebarProps
           ))}
         </nav>
 
-        <div className="flex flex-col items-center gap-6">
-          {/* Admin Button */}
-          <Link
-            to="/admin"
-            className="group relative flex items-center justify-center w-8 h-8"
-            aria-label="Admin Panel"
-          >
-            <Lock size={16} className="text-gray-text group-hover:text-black transition-colors duration-300" />
-
-            {/* Tooltip */}
-            <span className="absolute left-full ml-4 px-2 py-1 bg-black text-white text-xs font-mono opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300 ease-out whitespace-nowrap pointer-events-none">
-              Admin
-            </span>
-          </Link>
-
-          {/* Copyright */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.6, duration: 0.5 }}
-            className="font-mono text-[10px] text-gray-text"
-          >
-            © {new Date().getFullYear()}
-          </motion.div>
-        </div>
+        {/* Copyright */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 0.5 }}
+          className="font-mono text-[10px] text-gray-text"
+        >
+          © {new Date().getFullYear()}
+        </motion.div>
       </aside>
 
       {/* Mobile Header */}
@@ -118,15 +100,6 @@ export function Sidebar({ activeSection, onNavigate, onHomeClick }: SidebarProps
               )}
             </button>
           ))}
-
-          {/* Admin Button Mobile */}
-          <Link
-            to="/admin"
-            className="flex items-center justify-center w-8 h-8"
-            aria-label="Admin Panel"
-          >
-            <Lock size={14} className="text-gray-text hover:text-black transition-colors duration-300" />
-          </Link>
         </nav>
       </header>
     </>
