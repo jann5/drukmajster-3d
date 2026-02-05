@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
+import { Link } from 'react-router-dom';
 import { Reveal } from '../components/ui/Reveal';
 import { Trash2, Plus, LogOut, Image as ImageIcon, Eye, EyeOff, Upload, GripVertical, Crop } from 'lucide-react';
 import { useQuery, useMutation } from "convex/react";
@@ -200,12 +201,12 @@ export function AdminPage() {
                                 Zaloguj
                             </button>
                         </form>
-                        <button
-                            onClick={() => window.location.href = '/'}
-                            className="mt-6 text-gray-text text-xs font-mono uppercase tracking-widest hover:text-black transition-colors w-full text-center"
+                        <Link
+                            to="/"
+                            className="mt-6 text-gray-text text-xs font-mono uppercase tracking-widest hover:text-black transition-colors w-full text-center block"
                         >
                             Powrót do strony
-                        </button>
+                        </Link>
                     </div>
                 </Reveal>
             </div>
