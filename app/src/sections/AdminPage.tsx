@@ -109,7 +109,15 @@ export function AdminPage() {
 
         try {
             console.log('Calling verifyPassword mutation...');
-            const isValid = await verifyPassword({ password });
+
+            // Add timeout to prevent infinite hanging
+            const timeoutPromise = new Promise<boolean>((_, reject) =>
+                setTimeout(() => reject(new Error('Timeout: Mutation nie odpowiada (10s)')), 10000)
+            );
+
+            const verifyPromise = verifyPassword({ password });
+
+            const isValid = await Promise.race([verifyPromise, timeoutPromise]);
             console.log('verifyPassword result:', isValid);
 
             if (isValid) {
@@ -122,7 +130,12 @@ export function AdminPage() {
         } catch (err) {
             console.error('Login error:', err);
             console.error('Error details:', JSON.stringify(err, null, 2));
-            setError(`Błąd logowania: ${err instanceof Error ? err.message : 'Nieznany błąd'}`);
+
+            if (err instanceof Error && err.message.includes('Timeout')) {
+                setError('Błąd: Serwer Convex nie odpowiada. Sprawdź konfigurację.');
+            } else {
+                setError(`Błąd logowania: ${err instanceof Error ? err.message : 'Nieznany błąd'}`);
+            }
         }
     };
 
